@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resto.Domain.Common.Models
+namespace Resto.Domain.Common
 {
    public class AuditableEntity :BaseEntity<Guid>
     {

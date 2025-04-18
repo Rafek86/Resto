@@ -4,11 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resto.Domain.Enums
+namespace Resto.Domain.Events
 {
-  public enum TablesStatus
+    class ReservationCreatedEvent
     {
-        Available,
-        Reserved
     }
 }

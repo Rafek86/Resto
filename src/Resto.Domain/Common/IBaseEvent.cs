@@ -1,14 +1,13 @@
-﻿using System;
+﻿using MediatR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resto.Domain.Enums
+namespace Resto.Domain.Common
 {
-  public enum TablesStatus
+    public interface IBaseEvent :INotification
     {
-        Available,
-        Reserved
     }
 }

@@ -1,4 +1,4 @@
-﻿using Resto.Domain.Common.Models;
+﻿using Resto.Domain.Common;
 using Resto.Domain.Enums;
 using System;
 using System.Collections.Generic;

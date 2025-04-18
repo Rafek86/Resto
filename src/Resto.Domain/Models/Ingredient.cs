@@ -1,4 +1,4 @@
-﻿using Resto.Domain.Common.Models;
+﻿using Resto.Domain.Common;
 using System;
 
 namespace Resto.Domain.Models

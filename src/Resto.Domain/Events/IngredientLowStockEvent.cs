@@ -1,13 +1,12 @@
-﻿using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Resto.Domain.Common.Events
+namespace Resto.Domain.Events
 {
-    public class BaseEvent :INotification
+    class IngredientLowStockEvent
     {
     }
 }
