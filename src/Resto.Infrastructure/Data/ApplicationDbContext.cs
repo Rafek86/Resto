@@ -2,18 +2,16 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Resto.Application.Common.Interfaces;
+using Resto.Domain.Common;
 using Resto.Domain.Models;
 using Resto.Infrastructure.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection.Emit;
+
 
 namespace Resto.Infrastructure.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : IdentityDbContext<ApplicationUser, IdentityRole, string>(options) ,IApplicationDbContext
+        : IdentityDbContext<ApplicationUser, IdentityRole, string>(options), IApplicationDbContext
     {
         
 
@@ -28,6 +26,8 @@ namespace Resto.Infrastructure.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.Ignore<IBaseEvent>();
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         }
     }

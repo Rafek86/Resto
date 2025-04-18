@@ -1,4 +1,6 @@
-﻿namespace Resto.Infrastructure.Data.Configurations
+﻿
+
+namespace Resto.Infrastructure.Data.Configurations
 {
     class MenuItemConfiguration : IEntityTypeConfiguration<MenuItem>
     {
