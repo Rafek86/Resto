@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Common\Behaviours\" />
-    <Folder Include="Common\Exceptions\" />
-    <Folder Include="DTOs\" />
     <Folder Include="Events\Handlers\" />
   </ItemGroup>
 

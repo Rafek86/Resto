@@ -9,7 +9,7 @@ namespace Resto.Application.Common.Interfaces.Repositories
 {
    public interface IIngredientRepository
     {
-        Task<string> AddIngredientAsync(string name,int Units);
+        Task<string> AddIngredientAsync(string Id,string name,int Units);
         Task<string> UpdateIngredientAsync(string id, string name, int Units);
         Task<bool> DeleteIngredientAsync(string id);
         Task<IEnumerable<Ingredient>> GetAllIngredientsAsync();

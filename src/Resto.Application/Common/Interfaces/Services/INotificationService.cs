@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.Common.Interfaces.Services
 {
-    interface INotificationService
+   public interface INotificationService
     {
+        Task<string> AddNotificationAsync(string message, string recipientId);
+        Task<bool> DeleteNotificationAsync(string notificationId);
+        Task<IEnumerable<string>> GetAllNotificationsByUserIdAsync(string recipientId);
     }
 }
