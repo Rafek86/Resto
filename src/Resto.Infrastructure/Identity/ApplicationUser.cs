@@ -5,7 +5,7 @@ namespace Resto.Infrastructure.Identity
 {
     public class ApplicationUser :IdentityUser
     {
-        public Guid? CustomerId { get; set; }
+        public string? CustomerId { get; set; }
         public Customer? Customer { get; set; }
     }
 }

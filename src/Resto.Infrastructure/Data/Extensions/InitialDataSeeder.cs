@@ -7,7 +7,7 @@ public static class InitialDataSeeder
         if (!context.Customers.Any())
         {
             // Seed Customer
-            var customerId = Guid.NewGuid();
+            var customerId = Guid.NewGuid().ToString();
             var customer = new Customer
             {
                 Id = customerId,
@@ -21,14 +21,14 @@ public static class InitialDataSeeder
             {
                 new Ingredient
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Tomato",
                     Unit = 100,
                     RecordThreshold = 20
                 },
                 new Ingredient
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     Name = "Cheese",
                     Unit = 50,
                     RecordThreshold = 10
@@ -38,7 +38,7 @@ public static class InitialDataSeeder
             // Seed MenuItems
             var menuItem1 = new MenuItem
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 Name = "Margherita Pizza",
                 Description = "Classic cheese and tomato pizza",
                 Price = 89.99m,
@@ -48,7 +48,7 @@ public static class InitialDataSeeder
 
             var menuItem2 = new MenuItem
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 Name = "Greek Salad",
                 Description = "Fresh salad with feta cheese and olives",
                 Price = 49.99m,
@@ -59,7 +59,7 @@ public static class InitialDataSeeder
             // Seed Order and OrderItems
             var order = new Order
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 CustomerId = customerId,
                 TableNumber = 3,
                 OrderStatus = Resto.Domain.Enums.OrderStatus.Completed,
@@ -71,7 +71,7 @@ public static class InitialDataSeeder
             {
                 new OrderItem
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     OrderId = order.Id,
                     MenuItemId = menuItem1.Id,
                     Quantity = 1,
@@ -79,7 +79,7 @@ public static class InitialDataSeeder
                 },
                 new OrderItem
                 {
-                    Id = Guid.NewGuid(),
+                    Id = Guid.NewGuid().ToString(),
                     OrderId = order.Id,
                     MenuItemId = menuItem2.Id,
                     Quantity = 1,
@@ -90,7 +90,7 @@ public static class InitialDataSeeder
             // Seed Reservation
             var reservation = new Reservation
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 CustomerId = customerId,
                 TableNumber = 3,
                 ReservationDate = DateTime.UtcNow.AddDays(1),
@@ -101,7 +101,7 @@ public static class InitialDataSeeder
             // Seed Notification
             var notification = new Notification
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.NewGuid().ToString(),
                 CustomerId = customerId,
                 Message = "Your table is confirmed for tomorrow at 7 PM.",
                 TimeStamp = DateTime.UtcNow

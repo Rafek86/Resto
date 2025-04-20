@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Mapster;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Resto.Application.Common.Interfaces;
+using Resto.Application.DTOs;
 using Resto.Infrastructure.Data;
 using Resto.Infrastructure.Data.Interceptors;
 using Resto.Infrastructure.Identity;
@@ -29,6 +31,8 @@ namespace Resto.Infrastructure
             services.AddAuthConfig(configuration);
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+
+            TypeAdapterConfig<MenuItem, MenuDto>.NewConfig();
 
             return services;
         }
