@@ -5,7 +5,7 @@ namespace Resto.Domain.Models
 {
     public class Reservation : AuditableEntity
     {
-        public Guid CustomerId { get; set; }
+        public string CustomerId { get; set; }
         public Customer Customer { get; set; } = null!;
         public int TableNumber { get; set; }
         public DateTime ReservationDate { get; set; } = DateTime.UtcNow;

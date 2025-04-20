@@ -10,7 +10,7 @@ namespace Resto.Domain.Models
         public string Description { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public string Category { get; set; } = string.Empty;
-        public bool IsAvailable { get; set; }
+        public bool IsAvailable { get; set; } =true;
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

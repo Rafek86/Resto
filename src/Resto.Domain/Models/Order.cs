@@ -7,7 +7,7 @@ namespace Resto.Domain.Models
 {
     public class Order : AuditableEntity
     {
-        public Guid CustomerId { get; set; } 
+        public string CustomerId { get; set; } 
         public Customer Customer { get; set; } = null!;
         public int TableNumber { get; set; }
         public OrderStatus OrderStatus { get; set; } 

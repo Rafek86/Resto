@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Resto.Domain.Common
 {
-   public class AuditableEntity :BaseEntity<Guid>
+   public class AuditableEntity :BaseEntity<string>
     {
         public DateTimeOffset Created { get; set; }
 
