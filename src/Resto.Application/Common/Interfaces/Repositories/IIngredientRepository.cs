@@ -1,4 +1,5 @@
-﻿using Resto.Domain.Models;
+﻿using Resto.Application.Common.Pagination;
+using Resto.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,10 +10,10 @@ namespace Resto.Application.Common.Interfaces.Repositories
 {
    public interface IIngredientRepository
     {
-        Task<string> AddIngredientAsync(string Id,string name,int Units);
-        Task<string> UpdateIngredientAsync(string id, string name, int Units);
-        Task<bool> DeleteIngredientAsync(string id);
-        Task<IEnumerable<Ingredient>> GetAllIngredientsAsync();
+        Task<string> AddIngredientAsync(Ingredient ingredient);
+        Task<string> UpdateIngredientAsync(Ingredient ingredient);
+        Task<string> DeleteIngredientAsync(Ingredient ingredient);
+        Task<PagedResult<Ingredient>> GetAllIngredientsAsync(int pageNumber ,int pageSize);
         Task<Ingredient> GetIngredientByIdAsync(string id);
     }
 }

@@ -14,12 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Resto.Domain\Resto.Domain.csproj" />
+    <Folder Include="Common\Behaviours\" />
+    <Folder Include="Features\Customers\EventHandlers\" />
+    <Folder Include="Events\Handlers\" />
+    <Folder Include="Features\Ingredients\EventHandlers\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Common\Behaviours\" />
-    <Folder Include="Events\Handlers\" />
+    <ProjectReference Include="..\Resto.Domain\Resto.Domain.csproj" />
   </ItemGroup>
 
 </Project>

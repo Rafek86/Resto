@@ -1,11 +1,17 @@
-﻿using Resto.Application.Common.Interfaces.Repositories;
+﻿using Resto.Application.Common.Exceptions;
+using Resto.Application.Common.Interfaces.Repositories;
 using Resto.Application.Common.Interfaces.Services;
+using Resto.Application.Common.Pagination;
+using Resto.Application.Features.Ingredients.Commands.CreateIngredient;
+using Resto.Application.Features.Ingredients.Commands.DeleteIngredient;
+using Resto.Application.Features.Ingredients.Commands.UpdateIngredient;
+using Resto.Application.Features.Ingredients.Queries.GetAll;
+using Resto.Application.Features.Ingredients.Queries.GetById;
+using Resto.Application.DTOs;
 using Resto.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Mapster;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+
 
 namespace Resto.Application.Services
 {
@@ -13,26 +19,71 @@ namespace Resto.Application.Services
     {
         private readonly IIngredientRepository _ingredientRepository =ingredientRepository;
 
-        public Task<string> AddIngredientAsync(string Id, string name, int Units)
+        public async Task<CreateIngredientResult> AddIngredientAsync(CreateIngredientCommand command)
         {
-            return _ingredientRepository.AddIngredientAsync(Id, name, Units);
+            var ingredient = Ingredient.Create(
+                command.Name,
+                command.Unit,
+                command.RecordThreshold
+            );
+
+            await _ingredientRepository.AddIngredientAsync(ingredient);
+
+            return new CreateIngredientResult(ingredient.Id);
         }
-        public Task<string> UpdateIngredientAsync(string id, string name, int Units)
+
+        public async Task<UpdateIngredientResult> UpdateIngredientAsync(UpdateIngredientCommand command)
         {
-            return _ingredientRepository.UpdateIngredientAsync(id, name, Units);
+            if (await _ingredientRepository.GetIngredientByIdAsync(command.Id) is not { } ingredient)
+                throw new NotFoundException("Ingredient" ,$"{command.Id}");
+
+            ingredient.Update(
+                command.Name,
+                command.Unit,
+                command.RecordThreshold
+            );
+
+            await _ingredientRepository.UpdateIngredientAsync(ingredient);
+
+            return new UpdateIngredientResult(true);
         }
-        public Task<bool> DeleteIngredientAsync(string id)
+        public async Task<DeleteIngredientResult> DeleteIngredientAsync(DeleteIngredientCommand command)
         {
-            return _ingredientRepository.DeleteIngredientAsync(id);
+            if (await _ingredientRepository.GetIngredientByIdAsync(command.Id) is not { } ingredient)
+                throw new NotFoundException("Ingredient", $"{command.Id}");
+
+            ingredient.Delete();
+
+            await _ingredientRepository.UpdateIngredientAsync(ingredient);
+
+            return new DeleteIngredientResult(true);
         }
-        public Task<IEnumerable<Ingredient>> GetAllIngredientsAsync()
+
+
+        public async Task<PagedResult<GetIngredientsResult>> GetAllIngredientsAsync(GetIngredientsQuery query)
         {
-            return _ingredientRepository.GetAllIngredientsAsync();
+            var ingredientsPaged = await _ingredientRepository.GetAllIngredientsAsync(query.PageNumber, query.PageSize);
+
+            var mappedResults = ingredientsPaged.Items.Adapt<List<GetIngredientsResult>>();
+
+            return new PagedResult<GetIngredientsResult>
+            {
+                Items = mappedResults,
+                TotalItems = ingredientsPaged.TotalItems,
+                PageNumber = query.PageNumber,
+                PageSize = query.PageSize
+            };
         }
-        public Task<Ingredient> GetIngredientByIdAsync(string id)
+
+
+        public async Task<GetIngredientByIdResult> GetIngredientByIdAsync(GetIngredientByIdQuery query)
         {
-            return _ingredientRepository.GetIngredientByIdAsync(id);
+            if (await _ingredientRepository.GetIngredientByIdAsync(query.Id) is not { } ingredient)
+                throw new NotFoundException("Ingredient", $"{query.Id}");
+
+            return new GetIngredientByIdResult(ingredient.Adapt<IngredientDto>());
         }
-    }
+
+   }
 
 }
