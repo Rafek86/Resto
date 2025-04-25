@@ -1,6 +1,8 @@
 ﻿using Resto.Application.Common.Exceptions;
 using Resto.Application.Common.Interfaces;
 using Resto.Application.Common.Interfaces.Repositories;
+using Resto.Application.Common.Pagination;
+using Resto.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,64 +16,52 @@ namespace Resto.Infrastructure.Repositories
         private readonly IApplicationDbContext _context = context;
         private readonly DbSet<Ingredient> _dbSet = context.Ingredients;
 
-        public async Task<string> AddIngredientAsync(string Id, string name, int Units)
+        public async Task<string> AddIngredientAsync(Ingredient ingredient)
         {
-            if (await _dbSet.FindAsync(Id) is not{ } existingIngredient)
-            {
-                var ingredient = new Ingredient
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = name,
-                    Unit = Units
-                };
-                await _dbSet.AddAsync(ingredient);
-                await _context.SaveChangesAsync();
-                return ingredient.Id.ToString();
-            }
-
-            existingIngredient.Unit += Units;
+            _dbSet.Add(ingredient);
             await _context.SaveChangesAsync();
-            return existingIngredient.Id.ToString();
+            return ingredient.Id;
         }
 
-        public async Task<string> UpdateIngredientAsync(string id, string name, int Units)
+        public async Task<string> UpdateIngredientAsync(Ingredient ingredient)
         {
-            if(await _dbSet.FindAsync(id) is not { } existingIngredient)
-            {
-                throw new NotFoundException("Ingredient", name);
-            }
-
-            existingIngredient.Name = name;
-            existingIngredient.Unit = Units;
-            _dbSet.Update(existingIngredient);
+            _dbSet.Update(ingredient);
             await _context.SaveChangesAsync();
-
-            return existingIngredient.Id.ToString();
+            return ingredient.Id;
         }
 
-        public async Task<bool> DeleteIngredientAsync(string id)
+        public async Task<string> DeleteIngredientAsync(Ingredient ingredient)
         {
-            if (await _dbSet.FindAsync(id) is not { } existingIngredient)
-            {
-                throw new NotFoundException("Ingredient", id);
-            }
-            _dbSet.Remove(existingIngredient);
+            _dbSet.Update(ingredient);
             await _context.SaveChangesAsync();
-            return true;
+            return ingredient.Id;
         }
 
-        public async Task<IEnumerable<Ingredient>> GetAllIngredientsAsync()
+        public async Task<PagedResult<Ingredient>> GetAllIngredientsAsync(int pageNumber, int pageSize)
         {
-          return await _dbSet.ToListAsync();
+            if(pageNumber < 1 || pageSize < 1)
+                throw new ArgumentException("Invalid page number or page size.");
+
+            var items = await _dbSet
+               .OrderBy(i => i.Name)
+               .Skip((pageNumber - 1) * pageSize)
+               .Take(pageSize)
+               .ToListAsync();
+
+            var totalItems = await _dbSet.CountAsync();
+            return new PagedResult<Ingredient>
+            {
+                Items = items,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalItems = totalItems
+            };
         }
 
         public async Task<Ingredient> GetIngredientByIdAsync(string id)
         {
-            if (await _dbSet.FindAsync(id) is not { } existingIngredient)
-            {
-                throw new NotFoundException("Ingredient", id);
-            }
-            return existingIngredient;
+            return await _dbSet
+                 .FirstOrDefaultAsync(i => i.Id == id);
         }
 
     }

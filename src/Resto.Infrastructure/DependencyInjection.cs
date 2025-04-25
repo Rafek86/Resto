@@ -1,13 +1,18 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using Mapster;
+using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Resto.Application.Common.Interfaces;
+using Resto.Application.Common.Interfaces.Repositories;
 using Resto.Application.DTOs;
 using Resto.Infrastructure.Data;
 using Resto.Infrastructure.Data.Interceptors;
 using Resto.Infrastructure.Identity;
+using Resto.Infrastructure.Repositories;
+using System.Reflection;
 using System.Text;
 
 
@@ -31,8 +36,18 @@ namespace Resto.Infrastructure
             services.AddAuthConfig(configuration);
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
+         
+            // Register repositories
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IIngredientRepository, IngredientRepository>();
+            services.AddScoped<IMenuRepository, MenuRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
 
-            TypeAdapterConfig<MenuItem, MenuDto>.NewConfig();
+            //Mapster config
+            AddMapsterConfig(services);
+
 
             return services;
         }
@@ -78,6 +93,16 @@ namespace Resto.Infrastructure
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             });
+            return services;
+        }
+
+        private static IServiceCollection AddMapsterConfig(this IServiceCollection services)
+        {
+            var mappingConfig = TypeAdapterConfig.GlobalSettings;
+            mappingConfig.Scan(Assembly.GetExecutingAssembly());
+
+            services.AddSingleton<IMapper>(new Mapper(mappingConfig));
+
             return services;
         }
     }

@@ -11,7 +11,7 @@ using System.Reflection.Emit;
 namespace Resto.Infrastructure.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : IdentityDbContext<ApplicationUser, IdentityRole, string>(options), IApplicationDbContext
+        : IdentityDbContext<ApplicationUser, IdentityRole, string>(options) ,IApplicationDbContext
     {
         
 
