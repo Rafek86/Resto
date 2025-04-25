@@ -13,5 +13,41 @@ namespace Resto.Domain.Models
         public bool IsAvailable { get; set; } =true;
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+      
+        
+        private MenuItem() { }
+
+        // Create method
+        public static MenuItem Create(string name, string description, decimal price, string category, bool isAvailable = true)
+        {
+            var menuItem = new MenuItem
+            {
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                Description = description,
+                Price = price,
+                Category = category,
+                IsAvailable = isAvailable
+            };
+
+            return menuItem;
+        }
+
+        // Update method
+        public void Update(string name, string description, decimal price, string category, bool isAvailable)
+        {
+            Name = name;
+            Description = description;
+            Price = price;
+            Category = category;
+            IsAvailable = isAvailable;
+        }
+
+        // Delete method
+        public void Delete()
+        {
+            IsAvailable = false; // Soft delete by marking as unavailable
+        }
+
     }
 }

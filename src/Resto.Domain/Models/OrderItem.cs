@@ -1,4 +1,5 @@
 ﻿using Resto.Domain.Common;
+using Resto.Domain.Events;
 using System;
 
 namespace Resto.Domain.Models
@@ -11,5 +12,52 @@ namespace Resto.Domain.Models
         public MenuItem MenuItem { get; set; } = null!;
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
+     
+        private OrderItem() { }
+
+        // Create method
+        public static OrderItem Create(string orderId, string menuItemId, int quantity, decimal unitPrice)
+        {
+            var orderItem = new OrderItem
+            {
+                Id = Guid.NewGuid().ToString(),
+                OrderId = orderId,
+                MenuItemId = menuItemId,
+                Quantity = quantity,
+                UnitPrice = unitPrice
+            };
+
+            orderItem.AddDomainEvent(new OrderItemAddedEvent
+            {
+                OrderId = orderItem.OrderId,
+                ItemCount = 1
+            });
+
+            return orderItem;
+        }
+
+        // Update method
+        public void Update(int quantity, decimal unitPrice)
+        {
+            Quantity = quantity;
+            UnitPrice = unitPrice;
+
+            AddDomainEvent(new OrderItemAddedEvent
+            {
+                OrderId = OrderId,
+                ItemCount = Quantity
+            });
+        }
+
+        // Delete method
+        public void Delete()
+        {
+            AddDomainEvent(new OrderItemAddedEvent
+            {
+                OrderId = OrderId,
+                ItemCount = 0
+            });
+        }
+
     }
 }

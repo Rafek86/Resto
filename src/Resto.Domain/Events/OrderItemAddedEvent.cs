@@ -7,15 +7,10 @@ using System.Threading.Tasks;
 
 namespace Resto.Domain.Events
 {
-    public record OrderItemAddedEvent(
-        //string OrderId,
-        //OrderItemDto OrderItemDto
-        ) : IBaseEvent;
-    
-    //public record OrderItemDto(
-    //    string Id,
-    //    string OrderId,
-    //    string MenuItemId,
-    //    int Quantity
-    //);
+    public record OrderItemAddedEvent : IBaseEvent
+    {
+        public string OrderId { get; init; } = string.Empty;
+        public int ItemCount { get; init; }
+        public DateTime OccurredOn { get; init; } = DateTime.UtcNow;
+    }
 }
