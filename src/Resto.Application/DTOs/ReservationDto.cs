@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 namespace Resto.Application.DTOs
 {
    public record ReservationDto(
+       string ReservationId,
        int TableNumber,
        int PartySize,
        DateTime ReservationDate,
-       string CustomerId
+       string CustomerId,
+       string CustomerName
        );
 }

@@ -10,11 +10,11 @@ namespace Resto.Application.Common.Interfaces.Repositories
 {
    public interface IReservationRepository
     {
-        Task<Reservation> GetByIdAsync(string id);
-        Task<IEnumerable<ReservationDto>> GetAllAsync();
-        Task<IEnumerable<ReservationDto>> GetByCustomerIdAsync(string customerId);
-        Task<ReservationDto> AddAsync(string customerId,int TableNumber,int PartySize);
-        Task<bool> UpdateByIdAsync(string Id, ReservationDto reservation);
-        Task<bool> DeleteByIdAsync(string Id);
+        Task<Reservation> GetByIdAsync(string Id);
+        Task<IEnumerable<Reservation>> GetAllAsync();
+        Task<IEnumerable<Reservation>> GetByCustomerIdAsync(string customerId);
+        Task<string> AddAsync(Reservation reservation);
+        Task<string> UpdateByIdAsync(Reservation reservation);
+        Task<string> DeleteByIdAsync(Reservation reservation);
     }
 }
