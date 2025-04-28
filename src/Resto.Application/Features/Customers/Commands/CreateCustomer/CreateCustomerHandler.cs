@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.Features.Customers.Commands.CreateCustomer
 {
-    public class CreateCustomerHandler(ICustomerService customerService) : ICommandHandler<CreateCustomerCommand, CreateCustomerResult>
+    public class CreateNotificationrHandler(ICustomerService customerService) : ICommandHandler<CreateCustomerCommand, CreateCustomerResult>
     {
         private readonly ICustomerService _customerService = customerService;
 

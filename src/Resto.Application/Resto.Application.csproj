@@ -18,6 +18,9 @@
     <Folder Include="Features\Customers\EventHandlers\" />
     <Folder Include="Events\Handlers\" />
     <Folder Include="Features\Ingredients\EventHandlers\" />
+    <Folder Include="Features\MenuItems\Eventshandler\" />
+    <Folder Include="Features\Notifications\EventHandlers\" />
+    <Folder Include="Features\Reservations\EventHandlers\" />
   </ItemGroup>
 
   <ItemGroup>

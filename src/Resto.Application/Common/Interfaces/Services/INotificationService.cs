@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Resto.Application.Features.Notifications.Commands.Create;
+using Resto.Application.Features.Notifications.Commands.Delete;
+using Resto.Application.Features.Notifications.Queries.GetAllById;
+
 
 namespace Resto.Application.Common.Interfaces.Services
 {
    public interface INotificationService
     {
-        Task<string> AddNotificationAsync(string message, string recipientId);
-        Task<bool> DeleteNotificationAsync(string notificationId);
-        Task<IEnumerable<string>> GetAllNotificationsByUserIdAsync(string recipientId);
+        Task<CreateNotificationResult> AddNotificationAsync(CreateNotificationCommand command);
+        Task<DeleteNotificationResult> DeleteNotificationAsync(DeleteNotificationCommand command);
+        Task<IEnumerable<GetNotificationResponse>> GetAllNotificationsByUserIdAsync(GetNotificationsQuery query);
+        Task<GetNotificationResponse> GetNotificationByIdAsync(string id);
     }
 }

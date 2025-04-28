@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.Features.Customers.Commands.CreateCustomer
 {
-    public class CreateCustomerValidator : AbstractValidator<CreateCustomerCommand> { 
+    public class CreateNotificationValidator : AbstractValidator<CreateCustomerCommand> { 
     
-        public CreateCustomerValidator()
+        public CreateNotificationValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
