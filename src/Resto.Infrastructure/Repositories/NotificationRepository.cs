@@ -1,7 +1,7 @@
 ﻿using Resto.Application.Common.Exceptions;
 using Resto.Application.Common.Interfaces;
 using Resto.Application.Common.Interfaces.Repositories;
-
+using Resto.Application.Common.Pagination;
 
 namespace Resto.Infrastructure.Repositories
 {
@@ -10,38 +10,31 @@ namespace Resto.Infrastructure.Repositories
         private readonly IApplicationDbContext _context = context;
         private readonly DbSet<Notification> _dbSet = context.Notifications;
 
-        public async Task<string> AddNotificationAsync(string message, string recipientId)
+        public async Task<string> AddNotificationAsync(Notification notification)
         {
-            var notification = new Notification
-            {
-                Id = Guid.NewGuid().ToString(),
-                Message = message,
-                CustomerId = recipientId,
-                TimeStamp = DateTime.UtcNow
-            };
+        
             await _dbSet.AddAsync(notification);
             await _context.SaveChangesAsync();
 
             return notification.Id;
         }
 
-        public async Task<bool> DeleteNotificationAsync(string notificationId)
+        public async Task<string> DeleteNotificationAsync(Notification notification)
         {
-           if(await _dbSet.FindAsync(notificationId) is not { } existingNotification)
-            {
-                throw new NotFoundException("Notification", notificationId);
-            }
-            _dbSet.Remove(existingNotification);
+            _dbSet.Remove(notification);
             await _context.SaveChangesAsync();
-            return true;
+            return notification.Id;
         }
 
-        public async Task<IEnumerable<string>> GetAllNotificationsByUserIdAsync(string recipientId)
+        public async Task<IEnumerable<Notification>> GetAllNotificationsByUserIdAsync(string recipientId)
         {
-         return await _dbSet
-                .Where(n => n.CustomerId == recipientId)
-                .Select(n => n.Message)
-                .ToListAsync();
+            var items = await _dbSet.Where(r => r.Id == recipientId).ToListAsync();
+            return items;
+        }
+
+        public async Task<Notification> GetNotificationByIdAsync(string id)
+        {
+          return await _dbSet.FirstOrDefaultAsync(r => r.Id == id);
         }
     }
 }

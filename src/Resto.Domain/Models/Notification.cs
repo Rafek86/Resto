@@ -10,8 +10,6 @@ namespace Resto.Domain.Models
         public string Message { get; set; } = string.Empty;
         public DateTime TimeStamp { get; set; } = DateTime.Now;
    
-        
-        private Notification() { }
 
 
         public static Notification Create(string customerId, string message)
@@ -25,13 +23,6 @@ namespace Resto.Domain.Models
             };
 
             return notification;
-        }
-
-        // Update method
-        public void Update(string message)
-        {
-            Message = message;
-            TimeStamp = DateTime.UtcNow;
         }
 
     }
