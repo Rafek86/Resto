@@ -46,7 +46,7 @@ namespace Resto.Domain.Models
         // Delete method
         public void Delete()
         {
-            IsAvailable = false; // Soft delete by marking as unavailable
+            IsAvailable = false;
         }
 
     }

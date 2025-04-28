@@ -1,19 +1,20 @@
-﻿using Resto.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Resto.Application.Common.Pagination;
+using Resto.Application.DTOs;
+using Resto.Application.Features.MenuItems.Commands.AddMenuItem;
+using Resto.Application.Features.MenuItems.Commands.DeleteMenuItem;
+using Resto.Application.Features.MenuItems.Commands.UpdateMenuItem;
+using Resto.Application.Features.MenuItems.Queries.GetAll;
+using Resto.Application.Features.MenuItems.Queries.GetByCategory;
 
 namespace Resto.Application.Common.Interfaces.Services
 {
   public interface IMenuService 
     {
-        Task<string> AddMenuItemAsync(string name, string description, decimal price, string category);
-        Task<string> UpdateMenuItemAsync(string id, string name, string description, decimal price, string category);
-        Task<bool> DeleteMenuItemAsync(string id);
-        Task<IEnumerable<MenuDto>> GetAllMenuItemsAsync();
-        Task<MenuDto> GetMenuItemByIdAsync(string id);
-        Task<IEnumerable<MenuDto>> GetMenuItemsByCategoryAsync(string category);
+        Task<AddMenuItemResult> AddMenuItemAsync(AddMenuItemCommand command);
+        Task<UpdateMenuItemResult> UpdateMenuItemAsync(UpdateMenuItemcommand command);
+        Task<DeleteMenuItemResult> DeleteMenuItemAsync(DeleteMenuItemCommand command);
+        Task<PagedResult<GetAllMenuItemsResult>> GetAllMenuItemsAsync(GetAllMenuItemsQuery query);
+        //Task<MenuDto> GetMenuItemByIdAsync(string id);
+        Task<IEnumerable<GetByCategoryResult>> GetMenuItemsByCategoryAsync(GetByCategoryQuery query);
     }
 }

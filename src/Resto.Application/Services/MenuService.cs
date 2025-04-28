@@ -1,47 +1,95 @@
-﻿using Resto.Application.Common.Interfaces.Repositories;
+﻿using Mapster;
+using Resto.Application.Common.Exceptions;
+using Resto.Application.Common.Interfaces.Repositories;
+using Resto.Application.Common.Interfaces.Services;
+using Resto.Application.Common.Pagination;
 using Resto.Application.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Resto.Application.Features.MenuItems.Commands.AddMenuItem;
+using Resto.Application.Features.MenuItems.Commands.DeleteMenuItem;
+using Resto.Application.Features.MenuItems.Commands.UpdateMenuItem;
+using Resto.Application.Features.MenuItems.Queries.GetAll;
+using Resto.Application.Features.MenuItems.Queries.GetByCategory;
+using Resto.Domain.Models;
+
 
 namespace Resto.Application.Services
 {
-    public class MenuService(IMenuRepository menuRepository) : IMenuRepository
+    public class MenuService(IMenuRepository menuRepository) : IMenuService 
     {
         private readonly IMenuRepository _menuRepository = menuRepository;
 
-        public async Task<string> AddMenuItemAsync(string name, string description, decimal price, string category)
+        public async Task<AddMenuItemResult> AddMenuItemAsync(AddMenuItemCommand command)
         {
-         return  await  _menuRepository.AddMenuItemAsync(name, description, price, category);
+            var itemsInSameCategory = await _menuRepository.GetMenuItemsByCategoryAsync(command.Category);
+
+            if (itemsInSameCategory is not null && itemsInSameCategory.Any(x => x.Name == command.Name))
+            {
+                throw new ConflictException("Menu item already exists in the same category.");
+            }
+
+            var menuItem = MenuItem.Create(
+                command.Name,
+                command.Description,
+                command.Price,
+                command.Category,
+                command.IsAvailable);
+
+            await _menuRepository.AddMenuItemAsync(menuItem);
+
+            return new AddMenuItemResult(menuItem.Id);
         }
 
-
-        public async Task<string> UpdateMenuItemAsync(string id, string name, string description, decimal price, string category)
+        public async Task<DeleteMenuItemResult> DeleteMenuItemAsync(DeleteMenuItemCommand command)
         {
-            return await _menuRepository.UpdateMenuItemAsync(id, name, description, price, category);
+            if (await _menuRepository.GetMenuItemByIdAsync(command.Id) is not {  } menuItem)
+            {
+                throw new NotFoundException("MenuItem : " ,command.Id);
+            }
+
+            menuItem.Delete(); // sets IsAvailable = false
+
+            await _menuRepository.DeleteMenuItemAsync(menuItem);
+
+            return new DeleteMenuItemResult(true);
+        }
+        public async Task<PagedResult<GetAllMenuItemsResult>> GetAllMenuItemsAsync(GetAllMenuItemsQuery query)
+        {
+            var result = await _menuRepository.GetAllMenuItemsAsync(query.PageNumber, query.PageSize);
+
+            var mappedItems = result.Items.Adapt<IEnumerable<GetAllMenuItemsResult>>();
+
+            return new PagedResult<GetAllMenuItemsResult>
+            {
+                Items = mappedItems,
+                PageNumber = result.PageNumber,
+                PageSize = result.PageSize,
+                TotalItems = result.TotalItems
+            };
+        }
+        public async Task<IEnumerable<GetByCategoryResult>> GetMenuItemsByCategoryAsync(GetByCategoryQuery query)
+        {
+            var result = await _menuRepository.GetMenuItemsByCategoryAsync(query.Category);
+
+            var mappedItems = result.Select(x => new GetByCategoryResult(x.Adapt<MenuDto>()));
+
+            return mappedItems;
         }
 
-        public async Task<bool> DeleteMenuItemAsync(string id)
+        public async Task<UpdateMenuItemResult> UpdateMenuItemAsync(UpdateMenuItemcommand command)
         {
-            return await _menuRepository.DeleteMenuItemAsync(id);
-        }
+            if( await _menuRepository.GetMenuItemByIdAsync(command.Id) is not { } existingItem)
+                throw new NotFoundException("MenuItem : ", command.Id);
 
-        public async Task<IEnumerable<MenuDto>> GetAllMenuItemsAsync()
-        {
-            return await _menuRepository.GetAllMenuItemsAsync();
-        }
+            existingItem.Update(
+                command.Name,
+                command.Description,
+                command.Price,
+                command.Category,
+                command.IsAvailable);
 
-        public async Task<MenuDto> GetMenuItemByIdAsync(string id)
-        {
-            return await _menuRepository.GetMenuItemByIdAsync(id);
-        }
+            await _menuRepository.UpdateMenuItemAsync(existingItem);
 
-        public async Task<IEnumerable<MenuDto>> GetMenuItemsByCategoryAsync(string category)
-        {
-            return await _menuRepository.GetMenuItemsByCategoryAsync(category);
+            return new UpdateMenuItemResult(true);
         }
-
     }
 }
