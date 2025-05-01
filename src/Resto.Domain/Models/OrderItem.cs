@@ -12,7 +12,9 @@ namespace Resto.Domain.Models
         public MenuItem MenuItem { get; set; } = null!;
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
-     
+        public bool IsDeleted { get; set; } = false;
+
+
         private OrderItem() { }
 
         // Create method
@@ -42,21 +44,17 @@ namespace Resto.Domain.Models
             Quantity = quantity;
             UnitPrice = unitPrice;
 
-            AddDomainEvent(new OrderItemAddedEvent
+            AddDomainEvent(new OrderItemUpdatedEvent
             {
                 OrderId = OrderId,
-                ItemCount = Quantity
+                UpdatedQuantity = Quantity
             });
         }
 
         // Delete method
         public void Delete()
         {
-            AddDomainEvent(new OrderItemAddedEvent
-            {
-                OrderId = OrderId,
-                ItemCount = 0
-            });
+            IsDeleted = true;
         }
 
     }

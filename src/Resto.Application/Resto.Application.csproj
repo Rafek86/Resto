@@ -15,11 +15,12 @@
 
   <ItemGroup>
     <Folder Include="Common\Behaviours\" />
-    <Folder Include="Features\Customers\EventHandlers\" />
+    <Folder Include="Features\Customers\EventsHandler\" />
     <Folder Include="Events\Handlers\" />
-    <Folder Include="Features\Ingredients\EventHandlers\" />
+    <Folder Include="Features\Ingredients\EventsHandler\" />
     <Folder Include="Features\MenuItems\Eventshandler\" />
-    <Folder Include="Features\Notifications\EventHandlers\" />
+    <Folder Include="Features\Notifications\EventsHandler\" />
+    <Folder Include="Features\Orders\EventsHandler\" />
     <Folder Include="Features\Reservations\EventHandlers\" />
   </ItemGroup>
 

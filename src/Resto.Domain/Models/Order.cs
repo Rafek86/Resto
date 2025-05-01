@@ -14,6 +14,7 @@ namespace Resto.Domain.Models
         public OrderStatus OrderStatus { get; set; } 
         public decimal TotalPrice { get; set; }
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
+        public bool IsDeleted { get; set; } = false;
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
@@ -30,7 +31,7 @@ namespace Resto.Domain.Models
                 CustomerId = customerId,
                 TableNumber = tableNumber,
                 OrderStatus = OrderStatus.Pending, // Default status
-                TotalPrice = totalPrice,
+                TotalPrice = orderItems.Sum(item => item.UnitPrice * item.Quantity),
                 TimeStamp = DateTime.UtcNow,
                 OrderItems = orderItems
             };
@@ -43,6 +44,18 @@ namespace Resto.Domain.Models
             });
 
             return order;
+        }
+
+        public void AddItem(string menuItemId, int quantity, decimal unitPrice)
+        {
+            var orderItem = OrderItem.Create(Id, menuItemId, quantity, unitPrice);
+            OrderItems.Add(orderItem);
+            UpdateOrderItems(OrderItems);
+            AddDomainEvent(new OrderItemAddedEvent
+            {
+                OrderId = Id,
+                ItemCount = 1
+            });
         }
 
         // Update method for status
@@ -58,7 +71,7 @@ namespace Resto.Domain.Models
         }
 
         // Update method for order items
-        public void UpdateOrderItems(List<OrderItem> newOrderItems)
+        public void UpdateOrderItems(ICollection<OrderItem> newOrderItems)
         {
             OrderItems = newOrderItems;
             TotalPrice = OrderItems.Sum(item => item.UnitPrice * item.Quantity);
@@ -73,6 +86,7 @@ namespace Resto.Domain.Models
         // Delete method
         public void Delete()
         {
+            IsDeleted = true;
             AddDomainEvent(new OrderStatusUpdatedEvent
             {
                 OrderId = Id,
