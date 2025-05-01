@@ -8,9 +8,7 @@ namespace Resto.Application.DTOs
 {
   public record OrderItemDto(
       string MenuItemId,
-      string MenuItemName,
       int Quantity,
-      decimal UnitPrice,
-      decimal TotalPrice
+      decimal UnitPrice
       );
 }

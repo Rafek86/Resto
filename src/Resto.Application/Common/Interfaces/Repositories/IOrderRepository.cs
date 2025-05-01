@@ -10,9 +10,12 @@ namespace Resto.Application.Common.Interfaces.Repositories
 {
     public interface IOrderRepository
     {
-        Task<OrderDto> GetByIdAsync(string Id);
-        Task AddOrderAsync(string CustomerId,int TableNumber,string OrderStatus,decimal TotalPrice,List<OrderItemDto> OrderItems);
-        Task<bool> UpdateAsync(OrderDto order);
-        Task<bool> RemoveAsync(string Id);
+        Task<Order?> GetByIdAsync(string id);
+        Task<string> AddAsync(Order order);
+        Task<string> UpdateAsync(Order order);
+        Task<string> DeleteAsync(Order order);
+
+        Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(string customerId);
+        Task<IEnumerable<Order>> GetPendingOrdersAsync();
     }
 }

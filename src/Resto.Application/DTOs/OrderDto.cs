@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Resto.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,7 @@ namespace Resto.Application.DTOs
        string Id,
        string CustomerId,
        int TableNumber,
-       string OrderStatus,
+       OrderStatus OrderStatus,
        decimal TotalPrice,
        List<OrderItemDto> OrderItems
        );
