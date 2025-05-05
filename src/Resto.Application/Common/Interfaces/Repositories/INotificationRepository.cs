@@ -12,6 +12,7 @@ namespace Resto.Application.Common.Interfaces.Repositories
     public interface INotificationRepository
     {
         Task<string> AddNotificationAsync(Notification notification);
+        Task<string> AddRoleNotficationAsync(Notification notification);
         Task<string> DeleteNotificationAsync(Notification  notification);
         Task<IEnumerable<Notification>> GetAllNotificationsByUserIdAsync(string recipientId);
         Task<Notification> GetNotificationByIdAsync(string id);

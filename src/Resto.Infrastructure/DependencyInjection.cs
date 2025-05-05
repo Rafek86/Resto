@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Mapster;
+﻿using Mapster;
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -7,14 +6,16 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Resto.Application.Common.Interfaces;
 using Resto.Application.Common.Interfaces.Repositories;
+using Resto.Application.Common.Interfaces.Services;
 using Resto.Application.DTOs;
+using Resto.Application.Interfaces.Services;
+using Resto.Application.Services;
+using Resto.Domain.Models.Identity;
 using Resto.Infrastructure.Data;
 using Resto.Infrastructure.Data.Interceptors;
-using Resto.Infrastructure.Identity;
 using Resto.Infrastructure.Repositories;
 using System.Reflection;
 using System.Text;
-
 
 namespace Resto.Infrastructure
 {
@@ -22,21 +23,19 @@ namespace Resto.Infrastructure
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("DataBase");
-
             services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
             services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
             services.AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                options.UseSqlServer(configuration.GetConnectionString(connectionString!));
+                options.UseSqlServer(configuration.GetConnectionString("Database"));
             });
 
             services.AddAuthConfig(configuration);
 
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
-         
+
             // Register repositories
             services.AddScoped<ICustomerRepository, CustomerRepository>();
             services.AddScoped<IIngredientRepository, IngredientRepository>();
@@ -45,19 +44,26 @@ namespace Resto.Infrastructure
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IReservationRepository, ReservationRepository>();
 
-            //Mapster config
-            AddMapsterConfig(services);
+            // Register services
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IIngredientService, IngredientService>();
+            services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderItemService, OrderItemService>();
+            services.AddScoped<IReservationService, ReservationService>();
 
+            // Mapster config
+            AddMapsterConfig(services);
 
             return services;
         }
 
-        private static IServiceCollection AddAuthConfig(this IServiceCollection services ,IConfiguration configuration) {
-
+        private static IServiceCollection AddAuthConfig(this IServiceCollection services, IConfiguration configuration)
+        {
             services.AddIdentity<ApplicationUser, IdentityRole>()
                     .AddEntityFrameworkStores<ApplicationDbContext>()
                     .AddDefaultTokenProviders();
-
 
             services.AddOptions<JwtOptions>()
                 .BindConfiguration(JwtOptions.SectionName)
@@ -66,22 +72,27 @@ namespace Resto.Infrastructure
 
             var jwtSettings = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>();
 
-            services.AddAuthentication(options=>
+            services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(o => {
-                o.SaveToken = true;
-                o.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key!)),
-                };
-            });
+         .AddJwtBearer(o =>
+         {
+             o.SaveToken = true;
+             o.TokenValidationParameters = new TokenValidationParameters
+             {
+                 ValidateIssuerSigningKey = true,
+                 ValidateIssuer = true,
+                 ValidateAudience = true,
+                 ValidateLifetime = true,
+                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings?.Key!)),
+                 ValidIssuer = jwtSettings?.Issuer,
+                 ValidAudience = jwtSettings?.Audience
+             };
+         });
+
+            services.AddAuthorization();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -93,6 +104,7 @@ namespace Resto.Infrastructure
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
             });
+
             return services;
         }
 
