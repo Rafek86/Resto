@@ -11,7 +11,7 @@ using Resto.Domain.Models;
 
 namespace Resto.Application.Services
 {
-    class ReservationService(IReservationRepository reservationRepository) : IReservationService
+   public class ReservationService(IReservationRepository reservationRepository) : IReservationService
     {
         private readonly IReservationRepository _reservationRepository = reservationRepository;
 

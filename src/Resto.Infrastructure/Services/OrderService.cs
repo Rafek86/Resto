@@ -1,4 +1,5 @@
-﻿using Resto.Application.Common.Exceptions;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
+using Resto.Application.Common.Exceptions;
 using Resto.Application.Common.Interfaces.Repositories;
 using Resto.Application.Common.Interfaces.Services;
 using Resto.Application.DTOs;
@@ -13,12 +14,11 @@ using System.Linq;
 
 namespace Resto.Application.Services
 {
-    public class OrderService(IOrderRepository orderRepository, IOrderItemService orderItemService, IMenuRepository menuRepository) : IOrderService
+    public class OrderService(IOrderRepository orderRepository, IMenuRepository menuRepository,IEmailSender emailSender) : IOrderService
     {
         private readonly IOrderRepository _orderRepository = orderRepository;
-        private readonly IOrderItemService _orderItemService = orderItemService;
         private readonly IMenuRepository _menuRepository = menuRepository;
-
+       
         public async Task<PlaceOrderResult> PlaceOrderAsync(PlaceOrderCommand command)
         {
             var orderItems = new List<OrderItem>();
