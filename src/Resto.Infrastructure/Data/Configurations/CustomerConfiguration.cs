@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resto.Domain.Models;
-using Resto.Infrastructure.Identity;
+using Resto.Domain.Models.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace Resto.Infrastructure.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasKey(c => c.Id);
+            //builder.HasKey(c => c.Id);
 
             builder.Property(c => c.Name)
                  .IsRequired()
@@ -24,17 +24,6 @@ namespace Resto.Infrastructure.Data.Configurations
                  .IsRequired()
                  .HasMaxLength(100);    
 
-            builder.HasIndex(c => c.IdentityId)
-                 .IsUnique();
-
-            builder.Property(c => c.IdentityId)
-                .IsRequired();
-
-
-            builder.HasOne<ApplicationUser>()
-                   .WithOne(au => au.Customer) 
-                   .HasForeignKey<Customer>(c => c.IdentityId);
-
             builder.HasMany(o => o.Orders)
                           .WithOne(c => c.Customer)
                           .HasForeignKey(f => f.CustomerId);
@@ -43,10 +32,7 @@ namespace Resto.Infrastructure.Data.Configurations
                           .WithOne(c => c.Customer)
                           .HasForeignKey(f => f.CustomerId);
 
-            builder.HasMany(o => o.Notifications)
-                          .WithOne(c => c.Customer)
-                          .HasForeignKey(f => f.CustomerId);
-
+            builder.ToTable("Customers");
 
         }
     }

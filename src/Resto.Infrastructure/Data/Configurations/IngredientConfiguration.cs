@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Resto.Domain.Models;
-using Resto.Infrastructure.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
