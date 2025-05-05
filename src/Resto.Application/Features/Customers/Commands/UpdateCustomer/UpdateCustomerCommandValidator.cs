@@ -9,7 +9,7 @@ namespace Resto.Application.Features.Customers.Commands.UpdateCustomer
 {
    public class UpdateCustomerCommandValidator :AbstractValidator<UpdateCustomerCommand>
     {
-        UpdateCustomerCommandValidator()
+      public UpdateCustomerCommandValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty()
