@@ -47,12 +47,12 @@ namespace Resto.Domain.Models
 
             if (Unit <= RecordThreshold)
             {
-                AddDomainEvent(new IngredientLowStockEvent
-                {
-                    IngredientId = Id,
-                    Name = Name,
-                    Unit = Unit
-                });
+                //AddDomainEvent(new IngredientLowStockEvent
+                //{
+                //    IngredientId = Id,
+                //    Name = Name,
+                //    Unit = Unit
+                //});
             }
         }
         //Delete method

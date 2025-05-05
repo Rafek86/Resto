@@ -46,12 +46,12 @@ namespace Resto.Domain.Models
             PartySize = partySize;
             TablesStatus = tablesStatus;
 
-            AddDomainEvent(new ReservationCreatedEvent
-            {
-                ReservationId = Id,
-                CustomerId = CustomerId,
-                ReservationDate = ReservationDate
-            });
+            //AddDomainEvent(new ReservationCreatedEvent
+            //{
+            //    ReservationId = Id,
+            //    CustomerId = CustomerId,
+            //    ReservationDate = ReservationDate
+            //});
         }
 
         // Delete method
@@ -59,11 +59,11 @@ namespace Resto.Domain.Models
         {
             TablesStatus = TablesStatus.Cancelled;
 
-            AddDomainEvent(new ReservationCancelledEvent
-            {
-                ReservationId = Id,
-                CustomerId = CustomerId
-            });
+            //AddDomainEvent(new ReservationCancelledEvent
+            //{
+            //    ReservationId = Id,
+            //    CustomerId = CustomerId
+            //});
         }
 
     }

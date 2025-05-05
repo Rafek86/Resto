@@ -1,14 +1,14 @@
 ﻿using Resto.Domain.Common;
 using Resto.Domain.Events;
+using Resto.Domain.Models.Identity;
 using System;
 
 namespace Resto.Domain.Models
 {
-    public class Customer : AuditableEntity
+    public class Customer : ApplicationUser
     {
         public string Name { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string IdentityId { get; set; } = string.Empty;
         public bool IsDeleted { get; set; } = false;
 
 
@@ -26,15 +26,14 @@ namespace Resto.Domain.Models
                 Id = Guid.NewGuid().ToString(),
                 Name = Name,
                 Email = Email,
-                IdentityId = Guid.NewGuid().ToString(),
             };
 
-            customer.AddDomainEvent(new UserRegisteredEvent
-            {
-                CustomerId = customer.Id,
-                Name = customer.Name,
-                Email = customer.Email
-            });
+            //customer.AddDomainEvent(new UserRegisteredEvent
+            //{
+            //    CustomerId = customer.Id,
+            //    Name = customer.Name,
+            //    Email = customer.Email
+            //});
 
             return customer;
         }
@@ -45,12 +44,12 @@ namespace Resto.Domain.Models
             Name = name;
             Email = email;
            
-            AddDomainEvent(new CustomerUpdateEvent
-            {
-                CustomerId = Id,
-                Name = Name,
-                Email = Email
-            });
+            //AddDomainEvent(new CustomerUpdateEvent
+            //{
+            //    CustomerId = Id,
+            //    Name = Name,
+            //    Email = Email
+            //});
         }
 
         // Delete method

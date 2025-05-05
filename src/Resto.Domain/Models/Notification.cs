@@ -1,29 +1,42 @@
 ﻿using Resto.Domain.Common;
+using Resto.Domain.Enums;
+using Resto.Domain.Models.Identity;
 using System;
 
 namespace Resto.Domain.Models
 {
-    public class Notification : AuditableEntity
+    public class Notification
     {
-        public string CustomerId { get; set; }
-        public Customer Customer { get; set; } = null!;
-        public string Message { get; set; } = string.Empty;
-        public DateTime TimeStamp { get; set; } = DateTime.Now;
-   
+        public string Id { get; private set; }
+        public string UserId { get; private set; }
+        public string Message { get; private set; }
+        public NotificationType Type { get; private set; }
+        public UserRole TargetRole { get; private set; } 
 
 
-        public static Notification Create(string customerId, string message)
+        private Notification() { }
+
+        public static Notification Create(string UserId, string message, NotificationType type = NotificationType.General)
         {
-            var notification = new Notification
+            return new Notification
             {
                 Id = Guid.NewGuid().ToString(),
-                CustomerId = customerId,
+                UserId = UserId,
                 Message = message,
-                TimeStamp = DateTime.UtcNow
+                Type = type,
+                TargetRole = UserRole.Customer 
             };
-
-            return notification;
         }
 
+        public static Notification CreateForRole(UserRole role, string message, NotificationType type = NotificationType.General)
+        {
+            return new Notification
+            {
+                Id = Guid.NewGuid().ToString(),
+                Message = message,
+                Type = type,
+                TargetRole = role
+            };
+        }
     }
 }

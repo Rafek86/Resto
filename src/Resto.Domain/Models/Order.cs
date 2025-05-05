@@ -16,7 +16,7 @@ namespace Resto.Domain.Models
         public DateTime TimeStamp { get; set; } = DateTime.UtcNow;
         public bool IsDeleted { get; set; } = false;
 
-        public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public List<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
 
 
@@ -46,18 +46,6 @@ namespace Resto.Domain.Models
             return order;
         }
 
-        public void AddItem(string menuItemId, int quantity, decimal unitPrice)
-        {
-            var orderItem = OrderItem.Create(Id, menuItemId, quantity, unitPrice);
-            OrderItems.Add(orderItem);
-            UpdateOrderItems(OrderItems);
-            AddDomainEvent(new OrderItemAddedEvent
-            {
-                OrderId = Id,
-                ItemCount = 1
-            });
-        }
-
         // Update method for status
         public void UpdateStatus(OrderStatus newStatus)
         {
@@ -71,7 +59,7 @@ namespace Resto.Domain.Models
         }
 
         // Update method for order items
-        public void UpdateOrderItems(ICollection<OrderItem> newOrderItems)
+        public void UpdateOrderItems(List<OrderItem> newOrderItems)
         {
             OrderItems = newOrderItems;
             TotalPrice = OrderItems.Sum(item => item.UnitPrice * item.Quantity);

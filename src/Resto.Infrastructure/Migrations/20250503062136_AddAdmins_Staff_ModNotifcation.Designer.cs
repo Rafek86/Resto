@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Resto.Infrastructure.Data;
 
@@ -11,9 +12,11 @@ using Resto.Infrastructure.Data;
 namespace Resto.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250503062136_AddAdmins_Staff_ModNotifcation")]
+    partial class AddAdmins_Staff_ModNotifcation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -307,7 +310,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.MenuItem", b =>
@@ -348,7 +351,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Notification", b =>
@@ -390,7 +393,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Order", b =>
@@ -441,7 +444,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.OrderItem", b =>
@@ -484,7 +487,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Reservation", b =>
@@ -525,7 +528,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Staff", b =>

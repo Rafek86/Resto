@@ -29,11 +29,11 @@ namespace Resto.Domain.Models
                 UnitPrice = unitPrice
             };
 
-            orderItem.AddDomainEvent(new OrderItemAddedEvent
-            {
-                OrderId = orderItem.OrderId,
-                ItemCount = 1
-            });
+            //orderItem.AddDomainEvent(new OrderItemAddedEvent
+            //{
+            //    OrderId = orderItem.OrderId,
+            //    ItemCount = 1
+            //});
 
             return orderItem;
         }
@@ -44,11 +44,11 @@ namespace Resto.Domain.Models
             Quantity = quantity;
             UnitPrice = unitPrice;
 
-            AddDomainEvent(new OrderItemUpdatedEvent
-            {
-                OrderId = OrderId,
-                UpdatedQuantity = Quantity
-            });
+            //AddDomainEvent(new OrderItemUpdatedEvent
+            //{
+            //    OrderId = OrderId,
+            //    UpdatedQuantity = Quantity
+            //});
         }
 
         // Delete method
