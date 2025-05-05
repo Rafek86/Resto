@@ -19,6 +19,13 @@ namespace Resto.Infrastructure.Repositories
             return notification.Id;
         }
 
+        public async Task<string> AddRoleNotficationAsync(Notification notification)
+        {
+            await _dbSet.AddAsync(notification);
+            await _context.SaveChangesAsync();
+            return notification.Id;
+        }
+
         public async Task<string> DeleteNotificationAsync(Notification notification)
         {
             _dbSet.Remove(notification);
@@ -28,7 +35,7 @@ namespace Resto.Infrastructure.Repositories
 
         public async Task<IEnumerable<Notification>> GetAllNotificationsByUserIdAsync(string recipientId)
         {
-            var items = await _dbSet.Where(r => r.Id == recipientId).ToListAsync();
+            var items = await _dbSet.Where(r => r.UserId == recipientId).ToListAsync();
             return items;
         }
 
