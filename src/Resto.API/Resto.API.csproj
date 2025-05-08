@@ -23,4 +23,8 @@
     <ProjectReference Include="..\Resto.Infrastructure\Resto.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Imgs\" />
+  </ItemGroup>
+
 </Project>
