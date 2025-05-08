@@ -11,7 +11,7 @@ namespace Resto.Application.Features.Reservations.Queries.GetById
     {
         public GetReservationsQueryValidator()
         {
-            RuleFor(x => x.reservationId)
+            RuleFor(x => x.Id)
                 .NotEmpty()
                 .WithMessage("Reservation Id is Required");
         }

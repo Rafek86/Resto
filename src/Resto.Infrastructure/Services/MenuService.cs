@@ -1,16 +1,8 @@
-﻿using Mapster;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Interfaces.Services;
-using Resto.Application.Common.Pagination;
-using Resto.Application.DTOs;
-using Resto.Application.Features.MenuItems.Commands.AddMenuItem;
+﻿using Resto.Application.Features.MenuItems.Commands.AddMenuItem;
 using Resto.Application.Features.MenuItems.Commands.DeleteMenuItem;
 using Resto.Application.Features.MenuItems.Commands.UpdateMenuItem;
 using Resto.Application.Features.MenuItems.Queries.GetAll;
 using Resto.Application.Features.MenuItems.Queries.GetByCategory;
-using Resto.Domain.Models;
-
 
 namespace Resto.Application.Services
 {
@@ -46,7 +38,7 @@ namespace Resto.Application.Services
                 throw new NotFoundException("MenuItem : " ,command.Id);
             }
 
-            menuItem.Delete(); // sets IsAvailable = false
+            menuItem.Delete(); 
 
             await _menuRepository.DeleteMenuItemAsync(menuItem);
 
@@ -54,9 +46,20 @@ namespace Resto.Application.Services
         }
         public async Task<PagedResult<GetAllMenuItemsResult>> GetAllMenuItemsAsync(GetAllMenuItemsQuery query)
         {
+
             var result = await _menuRepository.GetAllMenuItemsAsync(query.PageNumber, query.PageSize);
 
-            var mappedItems = result.Items.Adapt<IEnumerable<GetAllMenuItemsResult>>();
+            var mappedItems = result.Items.Select(item =>
+                new GetAllMenuItemsResult(
+                    new MenuDto(
+                        item.Name,
+                        item.Description,
+                        item.Category,
+                        item.Price,
+                        item.IsAvailable
+                    )
+                )
+            ).ToList();
 
             return new PagedResult<GetAllMenuItemsResult>
             {

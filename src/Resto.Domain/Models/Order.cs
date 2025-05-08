@@ -1,8 +1,4 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Enums;
-using Resto.Domain.Events;
-using System;
-using System.Collections.Generic;
+﻿
 
 namespace Resto.Domain.Models
 {
@@ -22,7 +18,6 @@ namespace Resto.Domain.Models
 
         private Order() { }
 
-        // Create method
         public static Order Create(string customerId, int tableNumber, decimal totalPrice, List<OrderItem> orderItems)
         {
             var order = new Order
@@ -30,7 +25,7 @@ namespace Resto.Domain.Models
                 Id = Guid.NewGuid().ToString(),
                 CustomerId = customerId,
                 TableNumber = tableNumber,
-                OrderStatus = OrderStatus.Pending, // Default status
+                OrderStatus = OrderStatus.Pending,
                 TotalPrice = orderItems.Sum(item => item.UnitPrice * item.Quantity),
                 TimeStamp = DateTime.UtcNow,
                 OrderItems = orderItems
@@ -46,19 +41,17 @@ namespace Resto.Domain.Models
             return order;
         }
 
-        // Update method for status
         public void UpdateStatus(OrderStatus newStatus)
         {
             OrderStatus = newStatus;
 
-            AddDomainEvent(new OrderStatusUpdatedEvent
-            {
-                OrderId = Id,
-                NewStatus = newStatus.ToString()
-            });
+            //AddDomainEvent(new OrderStatusUpdatedEvent
+            //{
+            //    OrderId = Id,
+            //    NewStatus = newStatus.ToString()
+            //});
         }
 
-        // Update method for order items
         public void UpdateOrderItems(List<OrderItem> newOrderItems)
         {
             OrderItems = newOrderItems;
@@ -70,14 +63,15 @@ namespace Resto.Domain.Models
                 ItemCount = newOrderItems.Count
             });
         }
-
-        // Delete method
         public void Delete()
         {
-            IsDeleted = true;
+            OrderStatus = OrderStatus.Cancelled;
+
             AddDomainEvent(new OrderStatusUpdatedEvent
             {
                 OrderId = Id,
+                CustomerId = CustomerId,
+                OccurredOn = DateTime.UtcNow,
                 NewStatus = "Cancelled"
             });
         }

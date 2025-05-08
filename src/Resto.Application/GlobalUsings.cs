@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Resto.Application
-{
-    class GlobalUsings
-    {
-    }
-}
+﻿global using FluentValidation;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Resto.Application.Common.Behaviours;
+global using System.Reflection;

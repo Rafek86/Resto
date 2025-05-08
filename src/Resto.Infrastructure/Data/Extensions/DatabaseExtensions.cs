@@ -1,13 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Resto.Domain.Models;
 using Resto.Domain.Models.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Resto.Infrastructure.Data.Extensions
 {
@@ -27,7 +19,7 @@ namespace Resto.Infrastructure.Data.Extensions
         {
             try
             {
-                //await SeedUsersAsync(userManager);
+                await SeedUsersAsync(userManager);
 
                 var customers = await SeedCustomersAsync(context, userManager);
                 var staff = await SeedStaffAsync(context, userManager);
@@ -54,7 +46,6 @@ namespace Resto.Infrastructure.Data.Extensions
 
         private static async Task SeedUsersAsync(UserManager<ApplicationUser> userManager)
         {
-            // Check if any users exist by querying the userManager instead of the DbContext
             if ((await userManager.Users.ToListAsync()).Count == 0)
             {
                 foreach (var user in InitialDataSeeder.Users)
@@ -76,25 +67,23 @@ namespace Resto.Infrastructure.Data.Extensions
         {
             if (!await context.Customers.AnyAsync())
             {
-                var customers = InitialDataSeeder.Customers.ToList();
-                foreach (var customer in customers)
+                var customers = new List<Customer>();
+
+                foreach (var customerData in InitialDataSeeder.Customers)
                 {
-                    var user = await userManager.FindByEmailAsync(customer.Email);
+                    var user = await userManager.FindByEmailAsync(customerData.Email);
                     if (user == null)
                     {
-                        throw new Exception($"No ApplicationUser found for customer with email {customer.Email}");
+                        throw new Exception($"No ApplicationUser found for customer with email {customerData.Email}");
                     }
 
-                    // Ensure proper linking between Customer and ApplicationUser
+                    var customer = Customer.Create(customerData.Email, customerData.Email);
                     customer.Id = user.Id;
                     customer.UserName = user.UserName;
 
-                    var updateResult = await userManager.UpdateAsync(user);
-                    if (!updateResult.Succeeded)
-                    {
-                        throw new Exception($"Failed to update user {user.UserName}: {string.Join(", ", updateResult.Errors.Select(e => e.Description))}");
-                    }
+                    customers.Add(customer);
                 }
+
                 await context.Customers.AddRangeAsync(customers);
                 await context.SaveChangesAsync();
 
@@ -108,25 +97,23 @@ namespace Resto.Infrastructure.Data.Extensions
         {
             if (!await context.Set<Staff>().AnyAsync())
             {
-                var staffMembers = InitialDataSeeder.staff.ToList();
-                foreach (var staff in staffMembers)
+                var staffMembers = new List<Staff>();
+
+                foreach (var staffData in InitialDataSeeder.staff)
                 {
-                    var user = await userManager.FindByEmailAsync(staff.Email);
+                    var user = await userManager.FindByEmailAsync(staffData.Email);
                     if (user == null)
                     {
-                        throw new Exception($"No ApplicationUser found for staff with email {staff.Email}");
+                        throw new Exception($"No ApplicationUser found for staff with email {staffData.Email}");
                     }
 
-                    // Ensure proper linking between Staff and ApplicationUser
+                    var staff = Staff.Create(staffData.Email, staffData.Email, staffData.StaffRole);
                     staff.Id = user.Id;
                     staff.UserName = user.UserName;
 
-                    var updateResult = await userManager.UpdateAsync(user);
-                    if (!updateResult.Succeeded)
-                    {
-                        throw new Exception($"Failed to update user {user.UserName}: {string.Join(", ", updateResult.Errors.Select(e => e.Description))}");
-                    }
+                    staffMembers.Add(staff);
                 }
+
                 await context.Set<Staff>().AddRangeAsync(staffMembers);
                 await context.SaveChangesAsync();
 
@@ -140,29 +127,27 @@ namespace Resto.Infrastructure.Data.Extensions
         {
             if (!await context.Set<Admin>().AnyAsync())
             {
-                var admins = InitialDataSeeder.Admins.ToList();
-                foreach (var admin in admins)
+                var adminsList = new List<Admin>();
+
+                foreach (var adminData in InitialDataSeeder.Admins)
                 {
-                    var user = await userManager.FindByEmailAsync(admin.Email);
+                    var user = await userManager.FindByEmailAsync(adminData.Email);
                     if (user == null)
                     {
-                        throw new Exception($"No ApplicationUser found for admin with email {admin.Email}");
+                        throw new Exception($"No ApplicationUser found for admin with email {adminData.Email}");
                     }
 
-                    // Ensure proper linking between Admin and ApplicationUser
+                    var admin = Admin.Create(adminData.FullName, adminData.Email);
                     admin.Id = user.Id;
                     admin.UserName = user.UserName;
 
-                    var updateResult = await userManager.UpdateAsync(user);
-                    if (!updateResult.Succeeded)
-                    {
-                        throw new Exception($"Failed to update user {user.UserName}: {string.Join(", ", updateResult.Errors.Select(e => e.Description))}");
-                    }
+                    adminsList.Add(admin);
                 }
-                await context.Set<Admin>().AddRangeAsync(admins);
+
+                await context.Set<Admin>().AddRangeAsync(adminsList);
                 await context.SaveChangesAsync();
 
-                return admins;
+                return adminsList;
             }
 
             return await context.Set<Admin>().ToListAsync();

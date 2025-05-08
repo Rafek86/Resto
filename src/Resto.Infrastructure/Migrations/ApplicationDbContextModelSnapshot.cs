@@ -47,6 +47,36 @@ namespace Resto.Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "e4419a69-dc03-4e19-a1d4-6788d831019e",
+                            ConcurrencyStamp = "624a4579-bf89-4f17-919d-90de7a3b980a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "7bebef86-eb86-403c-a5ff-2783eb0092ce",
+                            ConcurrencyStamp = "a47b96b1-f167-4132-bbac-24bea93478e8",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = "f3b0c5a1-2d4e-4b8f-9a7d-6c3e0f1b5c8d",
+                            ConcurrencyStamp = "f3b0c5a1-2d4e-4b8f-9a7d-6c3e0f1b5c8d",
+                            Name = "Staff",
+                            NormalizedName = "STAFF"
+                        },
+                        new
+                        {
+                            Id = "b1c5f3a2-4d8e-4b8f-9a7d-6c3e0f1b5c8d",
+                            ConcurrencyStamp = "b1c5f3a2-4d8e-4b8f-9a7d-6c3e0f1b5c8d",
+                            Name = "InventoryManager",
+                            NormalizedName = "INVENTORYMANAGER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -72,6 +102,204 @@ namespace Resto.Infrastructure.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetRoleClaims", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ClaimType = "Permission",
+                            ClaimValue = "roles:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ClaimType = "Permission",
+                            ClaimValue = "roles:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ClaimType = "Permission",
+                            ClaimValue = "roles:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ClaimType = "Permission",
+                            ClaimValue = "roles:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ClaimType = "Permission",
+                            ClaimValue = "users:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ClaimType = "Permission",
+                            ClaimValue = "users:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ClaimType = "Permission",
+                            ClaimValue = "users:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ClaimType = "Permission",
+                            ClaimValue = "users:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ClaimType = "Permission",
+                            ClaimValue = "menuitems:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            ClaimType = "Permission",
+                            ClaimValue = "menuitems:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            ClaimType = "Permission",
+                            ClaimValue = "menuitems:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            ClaimType = "Permission",
+                            ClaimValue = "menuitems:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            ClaimType = "Permission",
+                            ClaimValue = "orders:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            ClaimType = "Permission",
+                            ClaimValue = "orders:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            ClaimType = "Permission",
+                            ClaimValue = "orders:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            ClaimType = "Permission",
+                            ClaimValue = "orders:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            ClaimType = "Permission",
+                            ClaimValue = "orders:changestatus",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            ClaimType = "Permission",
+                            ClaimValue = "reservations:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            ClaimType = "Permission",
+                            ClaimValue = "reservations:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            ClaimType = "Permission",
+                            ClaimValue = "reservations:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            ClaimType = "Permission",
+                            ClaimValue = "reservations:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            ClaimType = "Permission",
+                            ClaimValue = "ingredients:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            ClaimType = "Permission",
+                            ClaimValue = "ingredients:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            ClaimType = "Permission",
+                            ClaimValue = "ingredients:update",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            ClaimType = "Permission",
+                            ClaimValue = "ingredients:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            ClaimType = "Permission",
+                            ClaimValue = "notifications:read",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            ClaimType = "Permission",
+                            ClaimValue = "notifications:create",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            ClaimType = "Permission",
+                            ClaimValue = "notifications:delete",
+                            RoleId = "e4419a69-dc03-4e19-a1d4-6788d831019e"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -90,9 +318,11 @@ namespace Resto.Infrastructure.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserClaims", (string)null);
                 });
@@ -110,9 +340,11 @@ namespace Resto.Infrastructure.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("AspNetUserLogins", (string)null);
                 });
@@ -151,7 +383,7 @@ namespace Resto.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Resto.Domain.Models.Admin", b =>
+            modelBuilder.Entity("Resto.Domain.Models.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -160,15 +392,15 @@ namespace Resto.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("LockoutEnabled")
@@ -177,15 +409,13 @@ namespace Resto.Infrastructure.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -203,75 +433,22 @@ namespace Resto.Infrastructure.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(256)
+                        .HasColumnType("nvarchar(256)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Admin", (string)null);
+                    b.HasIndex("NormalizedEmail")
+                        .HasDatabaseName("EmailIndex");
+
+                    b.HasIndex("NormalizedUserName")
+                        .IsUnique()
+                        .HasDatabaseName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.ToTable("AspNetUsers", (string)null);
 
                     b.UseTpcMappingStrategy();
-                });
-
-            modelBuilder.Entity("Resto.Domain.Models.Customer", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Ingredient", b =>
@@ -307,7 +484,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ingredients", (string)null);
+                    b.ToTable("Ingredients");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.MenuItem", b =>
@@ -348,7 +525,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MenuItems", (string)null);
+                    b.ToTable("MenuItems");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Notification", b =>
@@ -356,19 +533,13 @@ namespace Resto.Infrastructure.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("AdminId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CustomerId")
+                    b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("StaffId")
-                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("TargetRole")
                         .IsRequired()
@@ -384,13 +555,9 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdminId");
+                    b.HasIndex("ApplicationUserId");
 
-                    b.HasIndex("CustomerId");
-
-                    b.HasIndex("StaffId");
-
-                    b.ToTable("Notifications", (string)null);
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Order", b =>
@@ -441,7 +608,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.OrderItem", b =>
@@ -484,7 +651,7 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems", (string)null);
+                    b.ToTable("OrderItems");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Reservation", b =>
@@ -525,72 +692,54 @@ namespace Resto.Infrastructure.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Reservations", (string)null);
+                    b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("Resto.Domain.Models.Staff", b =>
+            modelBuilder.Entity("Resto.Domain.Models.Admin", b =>
                 {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int>("AccessFailedCount")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("bit");
+                    b.HasBaseType("Resto.Domain.Models.Identity.ApplicationUser");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasColumnType("nvarchar(max)");
+                    b.ToTable("Admin", (string)null);
+                });
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasColumnType("nvarchar(max)");
+            modelBuilder.Entity("Resto.Domain.Models.Customer", b =>
+                {
+                    b.HasBaseType("Resto.Domain.Models.Identity.ApplicationUser");
 
-                    b.Property<string>("PasswordHash")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("PhoneNumberConfirmed")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.ToTable("Customers", (string)null);
+                });
+
+            modelBuilder.Entity("Resto.Domain.Models.Staff", b =>
+                {
+                    b.HasBaseType("Resto.Domain.Models.Identity.ApplicationUser");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Position")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SecurityStamp")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
                     b.ToTable("Staff", (string)null);
-
-                    b.UseTpcMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -602,6 +751,24 @@ namespace Resto.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+                {
+                    b.HasOne("Resto.Domain.Models.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+                {
+                    b.HasOne("Resto.Domain.Models.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -609,21 +776,28 @@ namespace Resto.Infrastructure.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Resto.Domain.Models.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+                {
+                    b.HasOne("Resto.Domain.Models.Identity.ApplicationUser", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Notification", b =>
                 {
-                    b.HasOne("Resto.Domain.Models.Admin", null)
+                    b.HasOne("Resto.Domain.Models.Identity.ApplicationUser", null)
                         .WithMany("Notifications")
-                        .HasForeignKey("AdminId");
-
-                    b.HasOne("Resto.Domain.Models.Customer", null)
-                        .WithMany("Notifications")
-                        .HasForeignKey("CustomerId");
-
-                    b.HasOne("Resto.Domain.Models.Staff", null)
-                        .WithMany("Notifications")
-                        .HasForeignKey("StaffId");
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.Order", b =>
@@ -671,18 +845,9 @@ namespace Resto.Infrastructure.Migrations
                     b.Navigation("Customer");
                 });
 
-            modelBuilder.Entity("Resto.Domain.Models.Admin", b =>
+            modelBuilder.Entity("Resto.Domain.Models.Identity.ApplicationUser", b =>
                 {
                     b.Navigation("Notifications");
-                });
-
-            modelBuilder.Entity("Resto.Domain.Models.Customer", b =>
-                {
-                    b.Navigation("Notifications");
-
-                    b.Navigation("Orders");
-
-                    b.Navigation("Reservations");
                 });
 
             modelBuilder.Entity("Resto.Domain.Models.MenuItem", b =>
@@ -695,11 +860,16 @@ namespace Resto.Infrastructure.Migrations
                     b.Navigation("OrderItems");
                 });
 
+            modelBuilder.Entity("Resto.Domain.Models.Customer", b =>
+                {
+                    b.Navigation("Orders");
+
+                    b.Navigation("Reservations");
+                });
+
             modelBuilder.Entity("Resto.Domain.Models.Staff", b =>
                 {
                     b.Navigation("HandledOrders");
-
-                    b.Navigation("Notifications");
                 });
 #pragma warning restore 612, 618
         }

@@ -9,7 +9,6 @@ namespace Resto.Application.DTOs
     public record RegisterRequset(
         string Email,
         string Password,
-        string FirstName,
-        string LastName
+        string UserName
     );
 }

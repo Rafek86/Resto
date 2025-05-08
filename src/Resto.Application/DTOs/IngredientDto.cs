@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.DTOs
 {
-    public class IngredientDto
-    {
-        public string Name { get;}
-        public int Unit { get; }
-        public int RecordThreshold { get; }
-        public bool IsAvailable { get; } 
-    }
+    public record IngredientDto(
+     string Name,
+     int Unit ,
+     int RecordThreshold ,
+     bool IsAvailable 
+);
 }

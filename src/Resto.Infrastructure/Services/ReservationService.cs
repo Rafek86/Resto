@@ -1,13 +1,8 @@
-﻿using Mapster;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Interfaces.Services;
-using Resto.Application.Features.Reservations.Commands.Create;
+﻿using Resto.Application.Features.Reservations.Commands.Create;
 using Resto.Application.Features.Reservations.Commands.Delete;
 using Resto.Application.Features.Reservations.Commands.Update;
 using Resto.Application.Features.Reservations.Queries.GetAllById;
 using Resto.Application.Features.Reservations.Queries.GetById;
-using Resto.Domain.Models;
 
 namespace Resto.Application.Services
 {
@@ -56,28 +51,30 @@ namespace Resto.Application.Services
         {
             var reservations = await _reservationRepository.GetByCustomerIdAsync(query.CustomerId);
 
-            return reservations.Adapt<IEnumerable<GetReservationsResponse>>();
+            var dtos = reservations.Adapt<List<ReservationDto>>();
+            return dtos.Select(dto => new GetReservationsResponse(dto));
+
         }
 
         public async Task<GetReservationByIdResponse> GetByIdAsync(GetReservationByIdQuery query)
         {
-            var reservation = await _reservationRepository.GetByIdAsync(query.reservationId);
+            var reservation = await _reservationRepository.GetByIdAsync(query.Id);
 
             if (reservation == null)
             {
-                throw new NotFoundException(nameof(Reservation), query.reservationId);
+                throw new NotFoundException(nameof(Reservation), query.Id);
             }
-
-            return reservation.Adapt<GetReservationByIdResponse>();
+            var dto = reservation.Adapt<ReservationDto>();
+            return new GetReservationByIdResponse(dto);
         }
 
-        public async Task<UpdateReservationResult> UpdateByIdAsync(UpdateReservationCommand command)
+        public async Task<UpdateReservationResult> UpdateByIdAsync(string Id,UpdateReservationCommand command)
         {
-            var reservation = await _reservationRepository.GetByIdAsync(command.ReservationId);
+            var reservation = await _reservationRepository.GetByIdAsync(Id);
 
             if (reservation == null)
             {
-                throw new NotFoundException(nameof(Reservation), command.ReservationId);
+                throw new NotFoundException(nameof(Reservation), Id);
             }
 
             reservation.Update(
@@ -85,7 +82,6 @@ namespace Resto.Application.Services
                 command.PartySize,
                 command.TablesStatus
             );
-
             await _reservationRepository.UpdateByIdAsync(reservation);
 
             return new UpdateReservationResult(true);

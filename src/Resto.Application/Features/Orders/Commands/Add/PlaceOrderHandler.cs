@@ -1,14 +1,7 @@
 ﻿using Resto.Application.Common.CQRS;
 using Resto.Application.Common.Interfaces.Services;
 using Resto.Application.Interfaces.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Resto.Application.Features.Customers.Queries.GetCustomerById;
-using Resto.Application.Features.Notifications.Commands.Create;
-using Resto.Domain.Enums;
 namespace Resto.Application.Features.Orders.Commands.Add
 {
   public class PlaceOrderHandler(IOrderService orderService,

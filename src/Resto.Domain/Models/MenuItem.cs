@@ -1,6 +1,4 @@
-﻿using Resto.Domain.Common;
-using System;
-using System.Collections.Generic;
+﻿
 
 namespace Resto.Domain.Models
 {
@@ -17,7 +15,6 @@ namespace Resto.Domain.Models
         
         private MenuItem() { }
 
-        // Create method
         public static MenuItem Create(string name, string description, decimal price, string category, bool isAvailable = true)
         {
             var menuItem = new MenuItem
@@ -33,7 +30,7 @@ namespace Resto.Domain.Models
             return menuItem;
         }
 
-        // Update method
+
         public void Update(string name, string description, decimal price, string category, bool isAvailable)
         {
             Name = name;
@@ -43,7 +40,6 @@ namespace Resto.Domain.Models
             IsAvailable = isAvailable;
         }
 
-        // Delete method
         public void Delete()
         {
             IsAvailable = false;

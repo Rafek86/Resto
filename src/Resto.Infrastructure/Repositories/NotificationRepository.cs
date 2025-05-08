@@ -1,9 +1,4 @@
-﻿using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Pagination;
-
-namespace Resto.Infrastructure.Repositories
+﻿namespace Resto.Infrastructure.Repositories
 {
     public class NotificationRepository(IApplicationDbContext context) : INotificationRepository
     {

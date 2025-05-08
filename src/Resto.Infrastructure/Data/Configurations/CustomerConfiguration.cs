@@ -1,14 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Resto.Domain.Models;
-using Resto.Domain.Models.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Resto.Infrastructure.Data.Configurations
+﻿namespace Resto.Infrastructure.Data.Configurations
 {
     class CustomerConfiguration : IEntityTypeConfiguration<Customer>
     {

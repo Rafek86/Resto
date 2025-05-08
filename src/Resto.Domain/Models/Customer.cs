@@ -1,14 +1,10 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Events;
-using Resto.Domain.Models.Identity;
-using System;
+﻿using Resto.Domain.Models.Identity;
 
 namespace Resto.Domain.Models
 {
     public class Customer : ApplicationUser
     {
         public string Name { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
         public bool IsDeleted { get; set; } = false;
 
 
@@ -18,14 +14,15 @@ namespace Resto.Domain.Models
 
         private Customer() { }
 
-        // Create method
         public static Customer Create(string Name, string Email)
         {
             var customer = new Customer
             {
-                Id = Guid.NewGuid().ToString(),
                 Name = Name,
                 Email = Email,
+                UserName = Email,
+                NormalizedEmail = Email.ToUpper(),  
+                NormalizedUserName = Email.ToUpper(),  
             };
 
             //customer.AddDomainEvent(new UserRegisteredEvent
@@ -38,7 +35,6 @@ namespace Resto.Domain.Models
             return customer;
         }
 
-        // Update method
         public void Update(string name, string email)
         {
             Name = name;

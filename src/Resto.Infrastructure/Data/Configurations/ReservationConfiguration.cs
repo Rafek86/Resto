@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Resto.Domain.Enums;
-
-namespace Resto.Infrastructure.Data.Configurations
+﻿namespace Resto.Infrastructure.Data.Configurations
 {
     class ReservationConfiguration : IEntityTypeConfiguration<Reservation>
     {

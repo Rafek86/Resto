@@ -1,8 +1,4 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Events;
-using System;
-
-namespace Resto.Domain.Models
+﻿namespace Resto.Domain.Models
 {
     public class OrderItem : AuditableEntity
     {
@@ -17,7 +13,6 @@ namespace Resto.Domain.Models
 
         private OrderItem() { }
 
-        // Create method
         public static OrderItem Create(string orderId, string menuItemId, int quantity, decimal unitPrice)
         {
             var orderItem = new OrderItem
@@ -38,7 +33,6 @@ namespace Resto.Domain.Models
             return orderItem;
         }
 
-        // Update method
         public void Update(int quantity, decimal unitPrice)
         {
             Quantity = quantity;
@@ -51,7 +45,6 @@ namespace Resto.Domain.Models
             //});
         }
 
-        // Delete method
         public void Delete()
         {
             IsDeleted = true;

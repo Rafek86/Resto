@@ -12,7 +12,7 @@ namespace Resto.Application.Features.Notifications.Commands.Create
     
         public CreateNotificationValidator()
         {
-            RuleFor(x => x.customerId)
+            RuleFor(x => x.UserId)
                 .NotEmpty()
                 .WithMessage("customerId is required.");
 

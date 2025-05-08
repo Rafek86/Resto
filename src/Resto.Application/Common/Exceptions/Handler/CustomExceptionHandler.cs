@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Xml.Linq;
 
 namespace Resto.Application.Common.Exceptions.Handler
 {
@@ -22,12 +23,16 @@ namespace Resto.Application.Common.Exceptions.Handler
                 exception.GetType().Name,
                 httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
-
                 NotFoundException =>
                 (
                     exception.Message,
                     exception.GetType().Name,
                     httpContext.Response.StatusCode = StatusCodes.Status404NotFound
+                ),
+                EmailNotConfirmedException => (
+                exception.Message,
+                exception.GetType().Name,
+                httpContext.Response.StatusCode = StatusCodes.Status400BadRequest
                 ),
                 UnauthorizedAccessException =>
                 (

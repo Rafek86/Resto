@@ -6,35 +6,32 @@ using MimeKit;
 
 namespace Resto.Domain.Email;
 
-    public class EmailService(IOptions<MailSettings> mailSettings) : IEmailSender
+public class EmailService(IOptions<MailSettings> mailSettings) : IEmailSender
+{
+    private readonly MailSettings _mailSettings = mailSettings.Value;
+
+    public async Task SendEmailAsync(string email, string subject, string htmlMessage)
     {
-        private readonly MailSettings _mailSettings = mailSettings.Value;
-
-        public async Task SendEmailAsync(string email, string subject, string htmlMessage)
+        var message = new MimeMessage
         {
-            var message = new MimeMessage
-            {
-                Sender = MailboxAddress.Parse(_mailSettings.SenderName),
-                Subject = subject
-            };
+            Sender = MailboxAddress.Parse(_mailSettings.SenderEmail),
+            Subject = subject,
+        };
 
-            message.To.Add(MailboxAddress.Parse(email));
+        message.To.Add(MailboxAddress.Parse(email));
 
-            var builder = new BodyBuilder
-            {
-                HtmlBody = htmlMessage
-            };
-            message.Body = builder.ToMessageBody();
+        var builder = new BodyBuilder
+        {
+            HtmlBody = htmlMessage
+        };
 
-            using (var client = new SmtpClient())
-            {
-                client.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+        message.Body = builder.ToMessageBody();
 
-                client.Authenticate(_mailSettings.SenderEmail, _mailSettings.Password);
+        using var smtp = new SmtpClient();
 
-                client.Send(message);
-                client.Disconnect(true);
-            }
-        }
+        smtp.Connect(_mailSettings.Host, _mailSettings.Port, SecureSocketOptions.StartTls);
+        smtp.Authenticate(_mailSettings.Username, _mailSettings.Password);
+        await smtp.SendAsync(message);
+        smtp.Disconnect(true);
     }
-
+}

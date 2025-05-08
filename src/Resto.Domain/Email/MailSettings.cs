@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Resto.Domain.Email
 {
-   public class MailSettings
+    public class MailSettings
     {
         public static string SectionName = "MailSettings";
 
@@ -21,5 +16,5 @@ namespace Resto.Domain.Email
         public string SenderEmail { get; set; } = string.Empty;
 
         public string SenderName { get; set; } = string.Empty;
-   }
+    }
 }

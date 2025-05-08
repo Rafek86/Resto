@@ -5,11 +5,6 @@ using Resto.Application.Features.Notifications.Commands.Create;
 using Resto.Application.Interfaces.Services;
 using Resto.Domain.Enums;
 using Resto.Domain.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Resto.Application.Features.Orders.EventsHandler
 {

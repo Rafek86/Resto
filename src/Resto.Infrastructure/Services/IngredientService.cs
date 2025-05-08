@@ -1,16 +1,8 @@
-﻿using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Interfaces.Services;
-using Resto.Application.Common.Pagination;
-using Resto.Application.Features.Ingredients.Commands.CreateIngredient;
+﻿using Resto.Application.Features.Ingredients.Commands.CreateIngredient;
 using Resto.Application.Features.Ingredients.Commands.DeleteIngredient;
 using Resto.Application.Features.Ingredients.Commands.UpdateIngredient;
 using Resto.Application.Features.Ingredients.Queries.GetAll;
 using Resto.Application.Features.Ingredients.Queries.GetById;
-using Resto.Application.DTOs;
-using Resto.Domain.Models;
-using Mapster;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 
 namespace Resto.Application.Services
@@ -64,11 +56,20 @@ namespace Resto.Application.Services
         {
             var ingredientsPaged = await _ingredientRepository.GetAllIngredientsAsync(query.PageNumber, query.PageSize);
 
-            var mappedResults = ingredientsPaged.Items.Adapt<List<GetIngredientsResult>>();
+            var mappedItems = ingredientsPaged.Items.Select(ings => 
+            new GetIngredientsResult (
+                new IngredientDto
+                (
+                 ings.Name,
+                 ings.Unit,
+                 ings.RecordThreshold,
+                 ings.IsAvailable
+                )
+            )).ToList();
 
             return new PagedResult<GetIngredientsResult>
             {
-                Items = mappedResults,
+                Items = mappedItems,
                 TotalItems = ingredientsPaged.TotalItems,
                 PageNumber = query.PageNumber,
                 PageSize = query.PageSize
@@ -81,7 +82,8 @@ namespace Resto.Application.Services
             if (await _ingredientRepository.GetIngredientByIdAsync(query.Id) is not { } ingredient)
                 throw new NotFoundException("Ingredient", $"{query.Id}");
 
-            return new GetIngredientByIdResult(ingredient.Adapt<IngredientDto>());
+            var dto = ingredient.Adapt<IngredientDto>();
+            return new GetIngredientByIdResult(dto);
         }
 
    }

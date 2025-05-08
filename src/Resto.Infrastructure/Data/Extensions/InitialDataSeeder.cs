@@ -1,5 +1,4 @@
 ﻿using Resto.Domain.Models.Identity;
-using Resto.Domain.Enums;
 
 namespace Resto.Infrastructure.Data
 {
@@ -16,25 +15,24 @@ namespace Resto.Infrastructure.Data
             new ApplicationUser { UserName = "rafek.naim@gmail.com", Email = "rafek.naim@gmail.com", EmailConfirmed = true }
         };
 
-        public static IEnumerable<Customer> Customers => new[]
+        public static IEnumerable<(string FullName, string Email)> Customers => new[]
         {
-            Customer.Create("John Doe", "john.doe@example.com"),
-            Customer.Create("Jane Smith", "jane.smith@example.com"),
-            Customer.Create("Alice Johnson", "alice.johnson@example.com")
+            ("John Doe", "john.doe@example.com"),
+            ("Jane Smith", "jane.smith@example.com"),
+            ("Alice Johnson", "alice.johnson@example.com")
         };
-
-        public static IEnumerable<Staff> staff => new[]
+        
+        public static IEnumerable<(string FullName, string Email, string StaffRole)> staff => new[]
         {
-            Staff.Create("Moataz Doe", "moataz.doe@example.com", "Chef"),
-            Staff.Create("Johan Maradona", "johan.maradona@example.com", "InventoryManager"),
-            Staff.Create("Mohamed Mohsen", "mohamed.Mohsen@example.com", "Chef")
+            ("Moataz Doe", "moataz.doe@example.com", "Chef"),
+            ("Johan Maradona", "johan.maradona@example.com", "InventoryManager"),
+            ("Mohamed Mohsen", "mohamed.Mohsen@example.com", "Chef")
         };
-
-        public static IEnumerable<Admin> Admins => new[]
-        {
-            Admin.Create("Rafek", "rafek.naim@gmail.com")
+        
+        public static IEnumerable<(string FullName, string Email)> Admins => new[]
+             {
+            ("Rafek", "rafek.naim@gmail.com")
         };
-
         public static IEnumerable<Ingredient> Ingredients => new[]
         {
             Ingredient.Create("Tomato", 50, 10),
@@ -64,27 +62,23 @@ namespace Resto.Infrastructure.Data
 
             var notifications = new List<Notification>();
 
-            // Add customer notifications
             if (customers.Length >= 2)
             {
                 notifications.Add(Notification.Create(customers[0].Id, "Welcome to Resto! Your account is ready."));
                 notifications.Add(Notification.Create(customers[1].Id, "Your order has been confirmed."));
             }
 
-            // Add staff notifications
             if (staff.Length >= 2)
             {
                 notifications.Add(Notification.Create(staff[0].Id, "New order assigned to you.", NotificationType.General));
                 notifications.Add(Notification.Create(staff[1].Id, "Inventory update required.", NotificationType.General));
             }
 
-            // Add admin notifications
             if (admins.Length >= 1)
             {
                 notifications.Add(Notification.Create(admins[0].Id, "System report is available.", NotificationType.General));
             }
 
-            // Add role-based notifications
             notifications.Add(Notification.CreateForRole(UserRole.Staff, "New recipe guidelines are available", NotificationType.General));
             notifications.Add(Notification.CreateForRole(UserRole.Staff, "Monthly inventory check required", NotificationType.General));
 
@@ -114,7 +108,6 @@ namespace Resto.Infrastructure.Data
             var order2 = Order.Create(customers[1].Id, 3, 0, order2Items);
             order2Items.ForEach(item => item.OrderId = order2.Id);
 
-            // Add a third order with more items
             if (menuItems.Length >= 6)
             {
                 var order3Items = new List<OrderItem>

@@ -19,7 +19,7 @@ namespace Resto.Application.Common.Interfaces.Services
         Task<IEnumerable<GetReservationsResponse>> GetAllAsync(GetReservationsQuery query);
         Task<IEnumerable<GetReservationsResponse>> GetByCustomerIdAsync(GetReservationsQuery query);
         Task<CreateReservationResult> AddAsync(CreateReservationCommand command);
-        Task<UpdateReservationResult> UpdateByIdAsync(UpdateReservationCommand command);
+        Task<UpdateReservationResult> UpdateByIdAsync(string Id,UpdateReservationCommand command);
         Task<DeleteReservationResult> DeleteByIdAsync(DeleteReservationCommand command);
    }
 }

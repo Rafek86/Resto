@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.DTOs
 {
-    public record ResetPasswordRequest
+    public record ResetpasswordRequest
     (
         string Email,
         string Code,

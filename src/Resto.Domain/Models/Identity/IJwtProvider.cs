@@ -1,6 +1,4 @@
-﻿
-
-namespace Resto.Domain.Models.Identity
+﻿namespace Resto.Domain.Models.Identity
 {
     public interface IJwtProvider
     {

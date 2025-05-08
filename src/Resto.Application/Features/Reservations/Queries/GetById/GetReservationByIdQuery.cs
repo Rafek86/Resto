@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Resto.Application.Features.Reservations.Queries.GetById
 {
-    public record GetReservationByIdQuery(string reservationId) : IQuery<GetReservationByIdResponse>;
+    public record GetReservationByIdQuery(string Id) : IQuery<GetReservationByIdResponse>;
 
     public record GetReservationByIdResponse(ReservationDto Reservation);
 }

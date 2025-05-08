@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using Resto.Domain.Common;
-using System.Security.Principal;
-
+﻿
 namespace Resto.Infrastructure.Data.Interceptors
 {
     public class AuditableEntityInterceptor :SaveChangesInterceptor

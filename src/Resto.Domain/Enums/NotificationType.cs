@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace Resto.Domain.Enums
 {
@@ -14,6 +10,7 @@ namespace Resto.Domain.Enums
         OrderPlaced = 3,
         ReservationCanceled = 4,
         OrderUpdate = 5,
-        OrderCancelled = 6
+        OrderCancelled = 6,
+        ResetPassword = 7 
     }
 }

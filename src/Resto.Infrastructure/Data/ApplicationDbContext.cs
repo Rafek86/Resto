@@ -1,14 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using Resto.Application.Common.Interfaces;
-using Resto.Domain.Common;
-using Resto.Domain.Models;
-using Resto.Domain.Models.Identity;
-using System.Reflection.Emit;
-
-
-namespace Resto.Infrastructure.Data
+﻿namespace Resto.Infrastructure.Data
 {
     public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : IdentityDbContext<ApplicationUser, IdentityRole, string>(options) ,IApplicationDbContext
@@ -30,11 +20,12 @@ namespace Resto.Infrastructure.Data
             base.OnModelCreating(builder);
 
             builder.Ignore<IBaseEvent>();
-            builder.Ignore<ApplicationUser>();
+            //builder.Ignore<ApplicationUser>();
 
+            builder.Entity<ApplicationUser>().UseTpcMappingStrategy();
 
-            builder.Entity<Staff>().ToTable(nameof(Staff)).UseTpcMappingStrategy();
-            builder.Entity<Admin>().ToTable(nameof(Admin)).UseTpcMappingStrategy();
+            builder.Entity<Staff>().ToTable(nameof(Staff));
+            builder.Entity<Admin>().ToTable(nameof(Admin));
             
 
             builder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);

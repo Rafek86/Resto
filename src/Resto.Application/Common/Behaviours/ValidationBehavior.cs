@@ -21,7 +21,7 @@ namespace Resto.Application.Common.Behaviours
             var valdiationResults = await Task.WhenAll(
                 validators.Select(v=> v.ValidateAsync(context, cancellationToken))
             );
-
+            
             var failures = valdiationResults
                 .Where(r => r.Errors.Any())
                 .SelectMany(e =>e.Errors)

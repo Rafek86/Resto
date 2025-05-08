@@ -26,7 +26,7 @@ namespace Resto.Application.Features.Reservations.EventHandlers
                 $"Your reservation for table {notification.TableNumber} at {notification.ReservationDate} has been successfully created.",
                 NotificationType.Confirmation
             ));
-            //TODO::Email Service
+            //TODO::Staff Email Service
         }
     }
 }

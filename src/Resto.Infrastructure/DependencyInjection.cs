@@ -2,18 +2,20 @@
 using MapsterMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.IdentityModel.Tokens;
 using Resto.Application.Common.Interfaces;
 using Resto.Application.Common.Interfaces.Repositories;
 using Resto.Application.Common.Interfaces.Services;
-using Resto.Application.DTOs;
 using Resto.Application.Interfaces.Services;
 using Resto.Application.Services;
+using Resto.Domain.Email;
 using Resto.Domain.Models.Identity;
 using Resto.Infrastructure.Data;
 using Resto.Infrastructure.Data.Interceptors;
 using Resto.Infrastructure.Repositories;
+using Resto.Infrastructure.Services;
 using System.Reflection;
 using System.Text;
 
@@ -46,13 +48,21 @@ namespace Resto.Infrastructure
 
             // Register services
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IJwtProvider, JwtProvider>();
             services.AddScoped<IIngredientService, IngredientService>();
             services.AddScoped<IMenuService, MenuService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IOrderService, OrderService>();
             services.AddScoped<IOrderItemService, OrderItemService>();
             services.AddScoped<IReservationService, ReservationService>();
+            services.AddScoped<IOrderNotificationService, OrderNotificationService>();
 
+            services.AddTransient<IEmailSender, EmailService>();
+            services.AddOptions<MailSettings>()
+                .BindConfiguration(MailSettings.SectionName)
+                .ValidateDataAnnotations()
+                .ValidateOnStart();
             // Mapster config
             AddMapsterConfig(services);
 

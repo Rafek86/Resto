@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            max-width: 150px;
+            margin-bottom: 15px;
+        }
+
+        h1 {
+            color: #2980b9;
+            margin-bottom: 30px;
+        }
+
+        .reservation-details {
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .restaurant-info {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .map {
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+            .map img {
+                width: 100%;
+                height: auto;
+                display: block;
+            }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #2980b9;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eeeeee;
+        }
+
+        .note {
+            font-style: italic;
+            background-color: #f0f7fb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+
+        @media only screen and (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+
+            .reservation-details {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="cid:restaurant-logo" alt="Restaurant Logo" class="logo">
+        <h1>Reservation Confirmation</h1>
+    </div>
+
+    <p>Dear {{CustomerName}},</p>
+
+    <p>We're excited to confirm your reservation at {{RestaurantName}}. We look forward to welcoming you!</p>
+
+    <div class="reservation-details">
+        <h2>Reservation Details</h2>
+        <p><strong>Reservation Number:</strong> #{{ReservationId}}</p>
+        <p><strong>Date:</strong> {{ReservationDate}}</p>
+        <p><strong>Time:</strong> {{ReservationTime}}</p>
+        <p><strong>Party Size:</strong> {{PartySize}} people</p>
+    </div>
+
+    <div class="restaurant-info">
+        <h2>Restaurant Information</h2>
+        <p>{{RestaurantName}}</p>
+        <p>{{RestaurantAddress}}</p>
+        <p>Phone: {{RestaurantPhone}}</p>
+
+        <div class="map">
+            <img src="cid:restaurant-map" alt="Map to Restaurant">
+        </div>
+    </div>
+
+    <div class="note">
+        <p>If you need to modify or cancel your reservation, please do so at least 24 hours in advance by clicking the button below or calling us at {{RestaurantPhone}}.</p>
+    </div>
+
+    <p style="text-align: center; margin-top: 30px;">
+        <a href="#" class="button">Manage Reservation</a>
+    </p>
+
+    <div class="footer">
+        <p>Thank you for choosing {{RestaurantName}}!</p>
+        <p>&copy; 2025 {{RestaurantName}}. All rights reserved.</p>
+    </div>
+</body>
+</html>

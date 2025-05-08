@@ -1,8 +1,4 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Enums;
-using Resto.Domain.Events;
-
-namespace Resto.Domain.Models
+﻿namespace Resto.Domain.Models
 {
     public class Reservation : AuditableEntity
     {

@@ -1,12 +1,4 @@
-﻿using Mapster;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.DTOs;
-using Resto.Domain.Enums;
-
-
-namespace Resto.Infrastructure.Repositories
+﻿namespace Resto.Infrastructure.Repositories
 {
     class ReservationRepository(IApplicationDbContext context) : IReservationRepository
     {
@@ -48,7 +40,7 @@ namespace Resto.Infrastructure.Repositories
 
 
 
-        public async Task<Reservation?> GetByIdAsync(string id)
+        public async Task<Reservation> GetByIdAsync(string id)
         {
           return await _dbSet
                 .Include(r => r.Customer)

@@ -1,6 +1,4 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Events;
-using System;
+﻿
 
 namespace Resto.Domain.Models
 {
@@ -14,7 +12,6 @@ namespace Resto.Domain.Models
 
         private Ingredient() { }
 
-        // Create method
         public static Ingredient Create(string name, int unit, int recordThreshold)
         {
             var ingredient = new Ingredient
@@ -39,9 +36,9 @@ namespace Resto.Domain.Models
             return ingredient;
         }
 
-        // Update method
         public void Update(string Name,int unit, int recordThreshold)
         {
+            this.Name = Name;
             Unit = unit;
             RecordThreshold = recordThreshold;
 
@@ -55,7 +52,7 @@ namespace Resto.Domain.Models
                 //});
             }
         }
-        //Delete method
+
         public void Delete()
         {
             IsAvailable = false;

@@ -1,6 +1,4 @@
 ﻿using Resto.Domain.Models.Identity;
-using System;
-using System.Collections.Generic;
 
 namespace Resto.Domain.Models
 {
@@ -15,12 +13,10 @@ namespace Resto.Domain.Models
 
         private Staff() { }
 
-        // Create method
         public static Staff Create(string name, string email, string position)
         {
             var staff = new Staff
             {
-                Id = Guid.NewGuid().ToString(),
                 Name = name,
                 Email = email,
                 Position = position
@@ -29,7 +25,6 @@ namespace Resto.Domain.Models
             return staff;
         }
 
-        // Update method
         public void Update(string name, string email, string position)
         {
             Name = name;
@@ -37,7 +32,6 @@ namespace Resto.Domain.Models
             Position = position;
         }
 
-        // Delete method
         public void Delete()
         {
             IsActive = false;

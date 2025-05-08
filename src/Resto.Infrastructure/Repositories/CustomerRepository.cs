@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Resto.Application.DTOs;
-using Mapster;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Pagination;
-
-namespace Resto.Infrastructure.Repositories
+﻿namespace Resto.Infrastructure.Repositories
 {
     public class CustomerRepository(IApplicationDbContext context) : ICustomerRepository
     {

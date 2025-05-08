@@ -1,14 +1,4 @@
-﻿using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.DTOs;
-using Resto.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Resto.Infrastructure.Repositories
+﻿namespace Resto.Infrastructure.Repositories
 {
     class OrderRepository(IApplicationDbContext context) : IOrderRepository
     {
@@ -44,7 +34,7 @@ namespace Resto.Infrastructure.Repositories
            return await _dbSet
                 .Include(o => o.Customer)
                 .Include(o => o.OrderItems)
-                .FirstOrDefaultAsync(o => o.Id == id && o.IsDeleted == false);
+                .FirstOrDefaultAsync(o => o.Id == id && !o.IsDeleted);
         }
 
         public async Task<IEnumerable<Order>> GetOrdersByCustomerIdAsync(string customerId)

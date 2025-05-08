@@ -21,11 +21,7 @@ namespace Resto.Application.Features.Orders.Commands.Add
 
             RuleFor(x => x.Items)
                 .NotEmpty()
-                .WithMessage("Order items are required.")
-                .Must(items => items.All(item => item.Quantity > 0))
-                .WithMessage("Each item must have a quantity greater than 0.");
-
-
+                .WithMessage("Order items are required.");
         }
     }
 }

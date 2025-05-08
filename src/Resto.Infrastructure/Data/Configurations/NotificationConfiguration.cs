@@ -1,6 +1,4 @@
-﻿using Resto.Domain.Enums;
-
-namespace Resto.Infrastructure.Data.Configurations
+﻿namespace Resto.Infrastructure.Data.Configurations
 {
    public class NotificationConfiguration : IEntityTypeConfiguration<Notification>
     {

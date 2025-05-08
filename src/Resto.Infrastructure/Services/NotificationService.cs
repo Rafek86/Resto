@@ -1,21 +1,16 @@
-﻿using Mapster;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Interfaces.Services;
-using Resto.Application.Features.Notifications.Commands.Create;
+﻿using Resto.Application.Features.Notifications.Commands.Create;
 using Resto.Application.Features.Notifications.Commands.Delete;
 using Resto.Application.Features.Notifications.Queries.GetAllById;
 
 namespace Resto.Application.Services
 {
-    //TDOD:: Missing Transaction
     public class NotificationService(INotificationRepository notificationRepository) : INotificationService
     {
         private readonly INotificationRepository _notificationRepository = notificationRepository;
 
         public async Task<CreateNotificationResult> AddNotificationAsync(CreateNotificationCommand command)
         {
-            var notification = Notification.Create(command.customerId, command.message,command.type);
+            var notification = Notification.Create(command.UserId, command.message,command.type);
             await _notificationRepository.AddNotificationAsync(notification);
 
             return new CreateNotificationResult(notification.Id);

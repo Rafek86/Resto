@@ -3,6 +3,7 @@ using Resto.Application.Features.Orders.Commands.Delete;
 using Resto.Application.Features.Orders.Commands.Update;
 using Resto.Application.Features.Orders.Queries.GetOrder;
 using Resto.Application.Features.Orders.Queries.GetOrderByCustomer;
+using Resto.Application.Features.Orders.Queries.GetPendingOrders;
 using Resto.Domain.Models;
 
 namespace Resto.Application.Common.Interfaces.Services
@@ -15,5 +16,6 @@ namespace Resto.Application.Common.Interfaces.Services
 
         Task<GetOrderByIdResult> GetOrderDetailsAsync(GetOrderByIdQuery query);
         Task<GetOrderByCustomerResult> GetOrdersForCustomerAsync(GetOrderByCustomerQuery query);
+        Task<GetPendingOrdersResult> GetPendingOrdersAsync(GetPendingOrdersQuery query);
     }
 }

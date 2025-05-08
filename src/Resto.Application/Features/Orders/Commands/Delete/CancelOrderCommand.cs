@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 namespace Resto.Application.Features.Orders.Commands.Delete
 {
     public record CancelOrderCommand(
-        string OrderId,
-        string ReservationId
+        string OrderId
     ) : ICommand<CancelOrderResult>;
 
     public record CancelOrderResult(

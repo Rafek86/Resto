@@ -1,13 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Resto.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Resto.Infrastructure.Data.Configurations
+﻿namespace Resto.Infrastructure.Data.Configurations
 {
     class IngredientConfiguration : IEntityTypeConfiguration<Ingredient>
     {

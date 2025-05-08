@@ -7,10 +7,6 @@ namespace Resto.Application.Features.Reservations.Commands.Update
     
         public UpdateReservationValidator()
         {
-            RuleFor(x => x.ReservationId)
-                .NotEmpty()
-                .WithMessage("Reservation Id is Required");
-
             RuleFor(x => x.TableNumber)
                 .NotEmpty()
                 .WithMessage("Table Number is Required");

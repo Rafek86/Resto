@@ -1,16 +1,9 @@
-﻿using Mapster;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Pagination;
-using Resto.Application.DTOs;
-using Resto.Application.Features.Customers.Commands.CreateCustomer;
+﻿using Resto.Application.Features.Customers.Commands.CreateCustomer;
 using Resto.Application.Features.Customers.Commands.DeleteCustomer;
 using Resto.Application.Features.Customers.Commands.UpdateCustomer;
 using Resto.Application.Features.Customers.Queries.GetAllCustomers;
 using Resto.Application.Features.Customers.Queries.GetCustomerById;
 using Resto.Application.Features.Customers.Queries.GetCutomerByEmail;
-using Resto.Application.Interfaces.Services;
-using Resto.Domain.Models;
 
 public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
 {
@@ -58,9 +51,6 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
     public async Task<PagedResult<GetCustomerResponse>> GetPagedCustomersAsync(GetCustomersQuery query)
     {
         var result = await _customerRepository.GetPagedCustomersAsync(query.PageNumber, query.PageSize);
-
-        //var mappedItems = result.Items
-        //    .Select(c => new GetCustomerResponse(c.Id, c.Name, c.Email));
 
         var mappedItems = result.Items.Adapt<IEnumerable<GetCustomerResponse>>();
 

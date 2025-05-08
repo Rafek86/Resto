@@ -1,11 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Domain.Models;
-using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Pagination;
-
-namespace Resto.Infrastructure.Repositories
+﻿namespace Resto.Infrastructure.Repositories
 {
     public class MenuRepository(IApplicationDbContext context) : IMenuRepository
     {
@@ -56,7 +49,7 @@ namespace Resto.Infrastructure.Repositories
 
         public async Task<MenuItem> GetMenuItemByIdAsync(string id)
         {
-          return await _dbSet.FindAsync(id);
+          return await _dbSet.FirstOrDefaultAsync(m => m.Id ==id && m.IsAvailable);
         }
 
         public async Task<IEnumerable<MenuItem>> GetMenuItemsByCategoryAsync(string category)

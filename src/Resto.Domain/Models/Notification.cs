@@ -1,8 +1,4 @@
-﻿using Resto.Domain.Common;
-using Resto.Domain.Enums;
-using Resto.Domain.Models.Identity;
-using System;
-
+﻿
 namespace Resto.Domain.Models
 {
     public class Notification

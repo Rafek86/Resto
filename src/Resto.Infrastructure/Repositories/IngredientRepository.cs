@@ -1,14 +1,4 @@
-﻿using Resto.Application.Common.Exceptions;
-using Resto.Application.Common.Interfaces;
-using Resto.Application.Common.Interfaces.Repositories;
-using Resto.Application.Common.Pagination;
-using Resto.Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Resto.Infrastructure.Repositories
 {
     public class IngredientRepository(IApplicationDbContext context) : IIngredientRepository

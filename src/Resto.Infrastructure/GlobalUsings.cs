@@ -1,7 +1,30 @@
 ﻿global using Microsoft.EntityFrameworkCore;
 global using Resto.Domain.Models;
-
+global using Resto.Domain.Enums;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
+global using Microsoft.AspNetCore.Identity;
+global using Resto.Domain.Authorization;
+global using Microsoft.EntityFrameworkCore.ChangeTracking;
+global using Microsoft.EntityFrameworkCore.Diagnostics;
+global using Resto.Domain.Common;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using Resto.Application.Common.Interfaces;
+global using Resto.Domain.Models.Identity;
+global using Mapster;
+global using Resto.Application.DTOs;
+global using Resto.Application.Common.Interfaces.Repositories;
+global using Resto.Application.Common.Pagination;
+global using Resto.Infrastructure.Data;
+global using Resto.Application.Common.Interfaces.Services;
+global using Resto.Domain.Email;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Identity.UI.Services;
+global using Resto.Application.Common.Exceptions;
+global using Microsoft.AspNetCore.WebUtilities;
+global using System.Text;
+global using Resto.Application.Features.Notifications.Commands.Create;
+global using Microsoft.Extensions.Logging;
+
+global using Resto.Application.Interfaces.Services;
