@@ -114,17 +114,12 @@ Key architectural components:
 ### 📧 Email Screenshots
 
 ![Email Confirmation](./src/Resto.API/Imgs/EmailConfirmation.png)
-*Email Confirmation Template*
 
 ![Order Confirmation](./src/Resto.API/Imgs/OrderConfirmation.png)
-*Order Confirmation Email Template*
 
 ![Order Status Change](./src/Resto.API/Imgs/OrderStatusUpdate.png)
-*Order Status Change Email Template*
 
 ![Order Cancellation](./src/Resto.API/Imgs/OrderCancelled.png)
-*Order Cancellation Email Template*
-
 
 ## 🚀 Postman Documentation
 
