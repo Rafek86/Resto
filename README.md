@@ -64,7 +64,7 @@ Key architectural components:
 
 ### ⚡ Performance Optimization
 - Redis caching implementation for high-performance data access
-- Query optimization and database indexing strategy
+- Query optimization
 
 ## 📡 API Endpoints
 
