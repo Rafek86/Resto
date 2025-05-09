@@ -63,7 +63,7 @@ Key architectural components:
 - Fine-grained permission settings
 
 ### ⚡ Performance Optimization
-- Redis caching implementation for high-performance data access
+- caching implementation for high-performance data access
 - Query optimization
 
 ## 📡 API Endpoints
